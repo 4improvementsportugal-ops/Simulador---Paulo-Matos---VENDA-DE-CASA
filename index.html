@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- ═══════ META PIXEL — carregamento condicionado ao consentimento ═══════ -->
 <script>
@@ -60,92 +60,94 @@ button{font-family:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--preto);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ───────── Topo ───────── */
-.topo{padding:18px 20px 0;max-width:1180px;margin:0 auto}
-.marca{
-  font-family:'Fraunces',Georgia,serif;font-weight:600;
-  font-size:19px;letter-spacing:.14em;text-transform:uppercase;
-}
-.marca span{display:block;font-family:'Inter';font-size:9.5px;font-weight:500;
-  letter-spacing:.26em;color:var(--cinza);margin-top:2px}
+/* ───────── Nav ───────── */
+.nav{max-width:1240px;margin:0 auto;padding:20px 22px 14px;display:flex;
+  align-items:center;justify-content:space-between;gap:16px}
+.marca{font-family:'Figtree',sans-serif;font-weight:600;font-size:15.5px;
+  letter-spacing:.17em;text-transform:uppercase;line-height:1.1}
+.marca span{display:block;font-family:'Inter',sans-serif;font-size:9.5px;font-weight:500;
+  letter-spacing:.24em;color:var(--cinza);margin-top:3px;text-transform:uppercase}
+.nav-tel{font-size:13.5px;color:var(--cinza);text-decoration:none;white-space:nowrap}
+.nav-tel:hover{color:var(--preto)}
 
 /* ───────── Hero ───────── */
-.hero{
-  position:relative;overflow:hidden;background:var(--branco);
-  padding:22px 20px 34px;
+.hero{padding:0 12px 30px}
+.hero-card{
+  position:relative;max-width:1240px;margin:0 auto;display:grid;
+  border-radius:30px;overflow:hidden;
+  background:linear-gradient(168deg,#F4EDE2 0%,#FBF7F1 46%,#FFFFFF 100%);
 }
-.hero::before,.hero::after{
-  content:'';position:absolute;width:520px;height:520px;border-radius:50%;
-  pointer-events:none;z-index:0;
-}
-.hero::before{top:-260px;left:-200px;
-  background:radial-gradient(circle,rgba(201,178,148,.30),transparent 68%)}
-.hero::after{bottom:-300px;right:-220px;
-  background:radial-gradient(circle,rgba(201,178,148,.22),transparent 70%)}
-.hero-grid{
-  position:relative;z-index:1;max-width:1180px;margin:0 auto;
-  display:grid;gap:22px;align-items:center;
-}
+.hero-txt{padding:26px 22px 30px}
 .hero h1{
-  font-family:'Fraunces',Georgia,serif;font-weight:600;
-  font-size:clamp(27px,7.4vw,52px);line-height:1.1;letter-spacing:-.026em;
+  font-family:'Figtree',sans-serif;font-weight:500;
+  font-size:clamp(30px,8.4vw,62px);line-height:1.04;letter-spacing:-.032em;
   text-wrap:balance;
 }
 .hero h1 em{
-  display:block;font-style:italic;font-weight:400;
-  color:var(--preto);opacity:.62;font-size:.7em;margin-top:.28em;
+  display:block;font-style:italic;font-weight:400;opacity:.6;
+  font-size:.6em;margin-top:.34em;letter-spacing:-.02em;line-height:1.15;
 }
-.hero p.sub{
-  margin-top:14px;font-size:clamp(14.5px,3.7vw,17px);
-  color:var(--cinza);max-width:52ch;
+.hero p.sub{margin-top:15px;font-size:clamp(14.5px,3.7vw,16.5px);
+  color:var(--cinza);max-width:45ch}
+
+/* barra em pílula: é toda ela o botão */
+.capture{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;max-width:430px;margin-top:22px;
+  background:var(--branco);border:1px solid var(--bege-linha);border-radius:999px;
+  padding:7px 7px 7px 22px;text-align:left;
+  box-shadow:0 12px 32px rgba(17,17,17,.08);
+  transition:transform .16s ease,box-shadow .2s ease;
 }
-.cta-hero{
-  display:inline-block;margin-top:20px;background:var(--preto);color:var(--branco);
-  border:0;border-radius:var(--r);padding:16px 26px;font-size:16px;font-weight:600;
-  transition:transform .15s ease,background .2s ease;width:100%;max-width:340px;
+.capture:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(17,17,17,.13)}
+.capture-txt{font-size:14.5px;color:var(--cinza);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.capture-btn{
+  background:var(--preto);color:var(--branco);border-radius:999px;
+  padding:14px 22px;font-size:12px;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;white-space:nowrap;
 }
-.cta-hero:hover{background:#000;transform:translateY(-1px)}
-.selos{
-  display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:14px;
-  font-size:12px;color:var(--cinza);letter-spacing:.02em;
-}
+.selos{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:16px;
+  font-size:12px;color:var(--cinza);letter-spacing:.02em}
 .selos b{font-weight:500}
 .selos i{font-style:normal;color:var(--bege)}
 
-/* Foto + cartão */
+/* foto a sangrar até ao limite do cartão */
 .hero-foto{position:relative;order:-1}
-.hero-foto img{
-  width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--r);
-  max-height:34svh;
-}
+.hero-foto img{width:100%;aspect-ratio:16/10;object-fit:cover;
+  max-height:34svh;display:block}
 .stat{
-  position:absolute;left:10px;right:10px;bottom:10px;
-  background:rgba(255,255,255,.90);backdrop-filter:blur(9px);
-  -webkit-backdrop-filter:blur(9px);
-  border:1px solid var(--bege-linha);border-radius:12px;padding:11px 14px;
+  position:absolute;left:12px;right:12px;bottom:12px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);border-radius:16px;padding:11px 15px;
 }
-.stat b{
-  display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
-  font-size:15px;letter-spacing:-.01em;
-}
+.stat b{display:block;font-family:'Figtree',sans-serif;font-weight:600;
+  font-size:14.5px;letter-spacing:-.012em}
 .stat span{display:block;font-size:11.5px;color:var(--cinza);margin-top:2px}
 
 @media (max-height:700px){
   .hero-foto img{max-height:26svh}
-  .hero{padding-top:14px}
+  .hero-txt{padding-top:20px;padding-bottom:24px}
+  .capture{margin-top:18px}
+}
+@media (max-width:379px){
+  .capture{padding-left:16px}
+  .capture-txt{font-size:13px}
+  .capture-btn{padding:13px 17px}
 }
 @media (min-width:900px){
-  .hero{padding:40px 20px 70px}
-  .hero-grid{grid-template-columns:1.05fr .95fr;gap:56px}
-  .hero-foto{order:0;padding-left:34px}
-  .hero-foto img{aspect-ratio:4/3;max-height:none;border-radius:18px}
+  .hero{padding:0 20px 56px}
+  .hero-card{grid-template-columns:1.04fr .96fr;border-radius:40px;min-height:530px}
+  .hero-txt{padding:78px 30px 78px 62px;align-self:center}
+  .hero-foto{order:0}
+  .hero-foto img{position:absolute;inset:0;width:100%;height:100%;
+    aspect-ratio:auto;max-height:none}
   .stat{
-    left:-34px;right:auto;bottom:38px;width:250px;
+    left:-30px;right:auto;bottom:54px;width:242px;
     background:var(--branco);backdrop-filter:none;-webkit-backdrop-filter:none;
-    padding:16px 18px;box-shadow:0 16px 40px rgba(17,17,17,.13);
+    padding:17px 21px;border-radius:20px;box-shadow:0 20px 46px rgba(17,17,17,.16);
   }
-  .stat b{font-size:17px}
-  .cta-hero{width:auto}
+  .stat b{font-size:16px}
 }
 
 /* ───────── Quiz ───────── */
@@ -160,7 +162,7 @@ button{font-family:inherit;cursor:pointer}
   border-radius:99px;transition:width .45s cubic-bezier(.4,0,.2,1)}
 .passo-conta{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cinza);margin:12px 0 4px}
-.passo h2{font-family:'Fraunces',Georgia,serif;font-weight:600;
+.passo h2{font-family:'Figtree',sans-serif;font-weight:600;
   font-size:clamp(21px,5.2vw,28px);letter-spacing:-.02em;margin-bottom:20px}
 
 .passo{display:none}
@@ -231,24 +233,31 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
 </head>
 <body>
 
-<header class="topo">
+<header class="nav">
   <div class="marca">Paulo Matos<span>Consultoria Imobiliária</span></div>
+  <a class="nav-tel" href="tel:+351919783014">919 783 014</a>
 </header>
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
-  <div class="hero-grid">
+  <div class="hero-card">
     <div class="hero-txt">
-      <h1>A sua casa vale o que pede — ou o que o mercado aceita?
+      <h1>A sua casa vale o que pede ou o que o mercado aceita?
         <em>Entre as duas respostas podem estar meses.</em></h1>
-      <p class="sub">Duas casas iguais, na mesma rua: uma vende em seis semanas, a outra passa oito meses a envelhecer no portal. A diferença raramente é o imóvel — é um documento em falta ou um preço ancorado no sítio errado. Veja onde está a sua.</p>
-      <button class="cta-hero" id="btnComecar">Começar o diagnóstico →</button>
+      <p class="sub">Duas casas iguais, na mesma rua: uma vende em seis semanas, a outra passa oito meses a envelhecer no portal. A diferença raramente é o imóvel. É um documento em falta ou um preço ancorado no sítio errado.</p>
+
+      <button class="capture" id="btnComecar">
+        <span class="capture-txt">Diagnóstico gratuito da sua casa</span>
+        <span class="capture-btn">Começar</span>
+      </button>
+
       <div class="selos">
         <b>3 minutos</b><i aria-hidden="true">·</i>
         <b>Sem compromisso</b><i aria-hidden="true">·</i>
         <b>Resultado imediato</b>
       </div>
     </div>
+
     <div class="hero-foto">
       <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=85" alt="Moradia à venda, exterior" fetchpriority="high">
       <div class="stat">
@@ -309,8 +318,8 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         <select id="i-ano">
           <option value="">Selecionar…</option>
           <option>Antes de 1980</option>
-          <option>1980–2000</option>
-          <option>2001–2015</option>
+          <option>1980 a 2000</option>
+          <option>2001 a 2015</option>
           <option>Depois de 2015</option>
           <option>Não sei ao certo</option>
         </select>
@@ -360,7 +369,7 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         <span class="rot" id="l-enc">O imóvel tem algum encargo?</span>
         <div class="opts" role="group" aria-labelledby="l-enc">
           <button type="button" class="opt" aria-pressed="false" data-val="Não, está livre">Não, está livre</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Hipoteca — tenho crédito">Hipoteca — tenho crédito</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Hipoteca, tenho crédito">Hipoteca, tenho crédito</button>
           <button type="button" class="opt" aria-pressed="false" data-val="Penhora ou processo judicial">Penhora ou processo judicial</button>
           <button type="button" class="opt" aria-pressed="false" data-val="Usufruto">Usufruto</button>
           <button type="button" class="opt" aria-pressed="false" data-val="Não sei">Não sei</button>
@@ -371,16 +380,16 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
 
     <!-- PASSO 3 -->
     <div class="passo" data-passo="3">
-      <h2>O preço — e de onde vem esse número</h2>
+      <h2>O preço e de onde vem esse número</h2>
 
       <div class="campo" data-campo="valor">
         <label for="i-valor">Por quanto pretende vender?</label>
         <select id="i-valor">
           <option value="">Selecionar…</option>
           <option>Até 150.000 €</option>
-          <option>150.000 € – 250.000 €</option>
-          <option>250.000 € – 400.000 €</option>
-          <option>400.000 € – 600.000 €</option>
+          <option>150.000 € a 250.000 €</option>
+          <option>250.000 € a 400.000 €</option>
+          <option>400.000 € a 600.000 €</option>
           <option>Mais de 600.000 €</option>
           <option>Ainda não defini</option>
         </select>
@@ -402,10 +411,10 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         <label for="i-divida">Tem capital em dívida ao banco?</label>
         <select id="i-divida">
           <option value="">Selecionar…</option>
-          <option>Não tenho crédito — está pago</option>
+          <option>Não tenho crédito, está pago</option>
           <option>Menos de 50.000 €</option>
-          <option>50.000 € – 100.000 €</option>
-          <option>100.000 € – 200.000 €</option>
+          <option>50.000 € a 100.000 €</option>
+          <option>100.000 € a 200.000 €</option>
           <option>Mais de 200.000 €</option>
           <option>Não sei</option>
         </select>
@@ -416,7 +425,7 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         <span class="rot" id="l-marg">Tem margem de negociação?</span>
         <div class="opts" role="group" aria-labelledby="l-marg">
           <button type="button" class="opt" aria-pressed="false" data-val="Sim, tenho alguma margem">Sim, tenho alguma margem</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Pouca — só para fechar negócio">Pouca — só para fechar negócio</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Pouca, só para fechar negócio">Pouca, só para fechar negócio</button>
           <button type="button" class="opt" aria-pressed="false" data-val="Nenhuma, é este valor">Nenhuma, é este valor</button>
         </div>
         <span class="msg-erro">Escolha uma opção para continuar.</span>
@@ -504,16 +513,16 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
       </div>
 
       <div class="campo" data-campo="email">
-        <label for="i-email">E-mail</label>
+        <label for="i-email">Email</label>
         <input type="email" id="i-email" autocomplete="email" placeholder="nome@email.com">
-        <span class="msg-erro">Indique um e-mail válido.</span>
+        <span class="msg-erro">Indique um email válido.</span>
       </div>
 
       <div class="campo" data-campo="avaliacao">
         <span class="rot" id="l-aval">Quer marcar uma avaliação gratuita?</span>
         <div class="opts" role="group" aria-labelledby="l-aval">
           <button type="button" class="opt" aria-pressed="false" data-val="Sim, quero marcar">Sim, quero marcar</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Talvez — primeiro quero saber mais">Talvez — primeiro quero saber mais</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Talvez, primeiro quero saber mais">Talvez, primeiro quero saber mais</button>
           <button type="button" class="opt" aria-pressed="false" data-val="Não, só queria o diagnóstico">Não, só queria o diagnóstico</button>
         </div>
         <span class="msg-erro">Escolha uma opção para continuar.</span>
@@ -522,7 +531,7 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
       <div class="campo" data-campo="consent">
         <div class="consent">
           <input type="checkbox" id="i-consent">
-          <label for="i-consent">Autorizo a Paulo Matos — Consultoria Imobiliária a contactar-me sobre o meu diagnóstico.</label>
+          <label for="i-consent">Autorizo a Paulo Matos, Consultoria Imobiliária, a contactar-me sobre o meu diagnóstico.</label>
         </div>
         <span class="msg-erro">É necessário autorizar o contacto para receber o diagnóstico.</span>
       </div>
@@ -538,13 +547,13 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
 <footer class="rodape">
   <a href="tel:+351919783014" style="color:inherit">+351 919 783 014</a> ·
   <a href="mailto:pjmatos@century21.pt" style="color:inherit">pjmatos@century21.pt</a><br>
-  © <span id="ano"></span> Paulo Matos — Consultoria Imobiliária
+  © <span id="ano"></span> Paulo Matos, Consultoria Imobiliária
 </footer>
 
 <!-- ═══════ BANNER DE CONSENTIMENTO ═══════ -->
 <div class="cookies" id="cookies" role="dialog" aria-label="Consentimento de cookies">
   <div class="cookies-in">
-    <p>Usamos cookies de publicidade para medir a eficácia dos nossos anúncios. Se recusar, o diagnóstico funciona na mesma — só não é medido.</p>
+    <p>Usamos cookies de publicidade para medir a eficácia dos nossos anúncios. Se recusar, o diagnóstico funciona na mesma. Só não é medido.</p>
     <div>
       <button class="c-no" id="cNo">Recusar</button>
       <button class="c-ok" id="cOk">Aceitar</button>
@@ -556,7 +565,7 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
 /* ═══════════════════ CONFIGURAÇÃO DO CLIENTE ═══════════════════
    ⚠️ PREENCHER antes de publicar (BLOCO 1 do prompt-mestre).      */
 var WEBHOOK_URL  = '';                    /* Webhook GoHighLevel   */
-var NOME_ORIGEM  = 'Simulador Diagnóstico de Venda — Paulo Matos';
+var NOME_ORIGEM  = 'Simulador Diagnóstico de Venda Paulo Matos';
 var MARCA        = 'Paulo Matos';
 var CHAVE_UNICA  = 'diag_paulomatos';
 var PREFIXO_PAIS = '351';
@@ -752,7 +761,7 @@ function diagnosticar(){
   /* EIXO 1 — Documentação */
   var doc = 100;
   faltam.forEach(function(d){ doc -= d.peso; });
-  if(A.encargos === 'Hipoteca — tenho crédito')       doc -= 5;
+  if(A.encargos === 'Hipoteca, tenho crédito')       doc -= 5;
   if(A.encargos === 'Penhora ou processo judicial')   doc -= 30;
   if(A.encargos === 'Usufruto')                       doc -= 20;
   if(A.encargos === 'Não sei')                        doc -= 10;
@@ -782,7 +791,7 @@ function diagnosticar(){
   if(A.ocupacao === 'Uso ocasional')              estado += 5;
   if(A.ocupacao === 'Está arrendado a inquilinos')estado -= 30;
   if(A.ano === 'Antes de 1980')                   estado -= 15;
-  if(A.ano === '1980–2000')                       estado -= 5;
+  if(A.ano === '1980 a 2000')                       estado -= 5;
   if(A.ano === 'Depois de 2015')                  estado += 8;
   if(A.ano === 'Não sei ao certo')                estado -= 5;
   if(A.prazo === 'Estou só a explorar a ideia')   estado -= 10;
@@ -792,7 +801,7 @@ function diagnosticar(){
   var global = lim(doc*0.35 + preco*0.40 + estado*0.25);
   var tempo, nota;
   if(global >= 80){ tempo='4 a 8 semanas';   nota='A sua casa está pronta a ir a mercado.'; }
-  else if(global >= 65){ tempo='6 a 10 semanas'; nota='Está quase — faltam ajustes pontuais.'; }
+  else if(global >= 65){ tempo='6 a 10 semanas'; nota='Está quase. Faltam ajustes pontuais.'; }
   else if(global >= 50){ tempo='2 a 4 meses';    nota='Há pontos a resolver antes de anunciar.'; }
   else if(global >= 35){ tempo='4 a 6 meses';    nota='Vários travões vão atrasar a venda.'; }
   else { tempo='Mais de 6 meses'; nota='Sem intervenção, a venda vai arrastar-se.'; }
@@ -813,7 +822,7 @@ function diagnosticar(){
             d:'Reduz drasticamente o número de compradores interessados e pressiona o preço para baixo.'});
   if(A.origem_valor === 'É o valor de que preciso para os meus planos')
     t.push({t:'O preço está ancorado na sua necessidade',
-            d:'O mercado não paga o que precisamos de receber — paga o que vale. É o principal motivo de casas que não vendem.'});
+            d:'O mercado não paga o que precisamos de receber. Paga o que vale. É o principal motivo de casas que não vendem.'});
   if(A.origem_valor === 'Sinceramente, não faço ideia')
     t.push({t:'Ainda não sabe quanto vale a casa',
             d:'Anunciar acima do mercado queima o imóvel nas primeiras semanas, que são as que contam.'});
@@ -843,16 +852,16 @@ function diagnosticar(){
             d:'Ponha por escrito o valor mínimo aceite por todos. Evita perder o comprador na reta final.'});
   if(A.encargos === 'Penhora ou processo judicial')
     p.push({t:'Trate do levantamento da penhora',
-            d:'Comece pelo processo em tribunal ou pela entidade credora — é o passo mais demorado de todos.'});
+            d:'Comece pelo processo em tribunal ou pela entidade credora. É o passo mais demorado de todos.'});
   if(preco < 60)
     p.push({t:'Peça uma avaliação profissional',
             d:'Saber o valor real de mercado antes de anunciar é o que separa vender em semanas de vender em meses.'});
   if(A.ocupacao === 'Está arrendado a inquilinos')
     p.push({t:'Defina a estratégia com o inquilino',
-            d:'Vender com contrato ativo, negociar a saída ou aguardar o fim do contrato — cada opção muda o preço.'});
+            d:'Vender com contrato ativo, negociar a saída ou aguardar o fim do contrato. Cada opção muda o preço.'});
   if(faltam.length > 0)
     p.push({t:'Reúna os documentos em falta',
-            d:'Finanças, Conservatória e Câmara — pode tratar de tudo em paralelo e ganhar semanas.'});
+            d:'Finanças, Conservatória e Câmara. Pode tratar de tudo em paralelo e ganhar semanas.'});
   if(A.ja_venda === 'Sim, com agência em exclusivo')
     p.push({t:'Confirme a data de fim do contrato de exclusividade',
             d:'Só depois dessa data pode reposicionar o imóvel com outra estratégia.'});
