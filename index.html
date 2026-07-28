@@ -1,967 +1,976 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paulo Matos · Avaliação gratuita do seu imóvel</title>
-<meta name="description" content="Responda a 5 perguntas e perceba, em menos de 3 minutos, se as condições atuais do seu imóvel favorecem uma venda pelo valor certo.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagnóstico de Venda | Paulo Matos</title>
+<meta name="description" content="Descubra em 3 minutos o que está a travar a venda da sua casa e em quanto tempo pode vender.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Meta Pixel Code (substituir META_PIXEL_ID quando integrar) -->
-<!--
+<!-- ═══════ META PIXEL — carregamento condicionado ao consentimento ═══════ -->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', 'META_PIXEL_ID');
-fbq('track', 'PageView');
+  /* ⚠️ PREENCHER: substituir pelo Pixel ID DESTE cliente.
+     Enquanto contiver "AQUI", o simulador corre em MODO DEMO.            */
+  var PIXEL_ID = 'COLOCAR_PIXEL_ID_AQUI';
+  var PIXEL_ATIVO = PIXEL_ID.indexOf('AQUI') === -1;
+  var CHAVE_CONSENTIMENTO = 'diag_paulomatos_cookies';
+
+  function carregarPixel(){
+    if(!PIXEL_ATIVO || window.fbq) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track','PageView');
+  }
+  function temConsentimento(){
+    try { return localStorage.getItem(CHAVE_CONSENTIMENTO)==='aceite'; }
+    catch(e){ return false; }
+  }
+  if (temConsentimento()) carregarPixel();
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=META_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
--->
-<!-- End Meta Pixel Code -->
 
 <style>
 :root{
-  --bg:#E3E8DD;
-  --bg-soft:#EDF0E7;
-  --bg-elevated:#F5F7F1;
-  --bg-deep:#D2DBCB;
-  --ink:#0A0A0A;
-  --ink-muted:#3F3F3F;
-  --ink-subtle:#6B6B6B;
-  --line:#B5C0A9;
-  --line-soft:#CBD4BE;
-  --error:#A63C31;
-  --error-bg:#F5E3E0;
-  --serif:"Cormorant Garamond", Georgia, serif;
-  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --shadow:0 1px 2px rgba(10,10,10,.04), 0 12px 32px rgba(10,10,10,.06);
-  --shadow-sm:0 1px 2px rgba(10,10,10,.05);
-  --t:220ms cubic-bezier(.2,.7,.2,1);
+  --bege:#C9B294;
+  --bege-claro:#F6F1E9;
+  --bege-linha:#E6DBC9;
+  --preto:#111111;
+  --cinza:#6C6459;
+  --branco:#FFFFFF;
+  --verde:#2E7D5B;
+  --terracota:#B96F3D;
+  --vermelho:#B3382C;
+  --r:14px;
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%}
 body{
-  font-family:var(--sans);
-  background:var(--bg);
-  color:var(--ink);
-  line-height:1.55;
-  font-size:16px;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  color:var(--preto);background:var(--branco);
+  line-height:1.55;-webkit-font-smoothing:antialiased;
 }
-
 img{max-width:100%;display:block}
-button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--preto);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* Wordmark */
-.wordmark{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:22px;
-  letter-spacing:.01em;
-  color:var(--ink);
+/* ───────── Topo ───────── */
+.topo{padding:18px 20px 0;max-width:1180px;margin:0 auto}
+.marca{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;
+  font-size:19px;letter-spacing:.14em;text-transform:uppercase;
 }
-.wordmark em{font-style:italic;font-weight:400}
+.marca span{display:block;font-family:'Inter';font-size:9.5px;font-weight:500;
+  letter-spacing:.26em;color:var(--cinza);margin-top:2px}
 
-/* Topbar */
-.topbar{
-  padding:24px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  max-width:1120px;
-  margin:0 auto;
-}
-.topbar .contact{
-  font-size:13px;
-  color:var(--ink-muted);
-  letter-spacing:.02em;
-}
-.topbar .contact a{color:var(--ink);text-decoration:none;font-weight:500}
-
-/* Hero */
+/* ───────── Hero ───────── */
 .hero{
-  padding:32px 20px 56px;
-  max-width:820px;
-  margin:0 auto;
-  text-align:center;
+  position:relative;overflow:hidden;background:var(--branco);
+  padding:22px 20px 34px;
 }
-.hero .eyebrow{
-  font-size:12px;
-  font-weight:500;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--ink-muted);
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:28px;
+.hero::before,.hero::after{
+  content:'';position:absolute;width:520px;height:520px;border-radius:50%;
+  pointer-events:none;z-index:0;
 }
-.hero .eyebrow::before,
-.hero .eyebrow::after{
-  content:"";
-  width:28px;
-  height:1px;
-  background:var(--line);
+.hero::before{top:-260px;left:-200px;
+  background:radial-gradient(circle,rgba(201,178,148,.30),transparent 68%)}
+.hero::after{bottom:-300px;right:-220px;
+  background:radial-gradient(circle,rgba(201,178,148,.22),transparent 70%)}
+.hero-grid{
+  position:relative;z-index:1;max-width:1180px;margin:0 auto;
+  display:grid;gap:22px;align-items:center;
 }
 .hero h1{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:clamp(34px, 6vw, 56px);
-  line-height:1.1;
-  letter-spacing:-.01em;
-  color:var(--ink);
-  margin-bottom:24px;
+  font-family:'Fraunces',Georgia,serif;font-weight:600;
+  font-size:clamp(27px,7.4vw,52px);line-height:1.1;letter-spacing:-.026em;
+  text-wrap:balance;
 }
 .hero h1 em{
-  font-style:italic;
-  font-weight:400;
-  color:var(--ink);
+  display:block;font-style:italic;font-weight:400;
+  color:var(--preto);opacity:.62;font-size:.7em;margin-top:.28em;
 }
-.hero .lead{
-  font-size:17px;
-  color:var(--ink-muted);
-  max-width:560px;
-  margin:0 auto 36px;
-  line-height:1.6;
+.hero p.sub{
+  margin-top:14px;font-size:clamp(14.5px,3.7vw,17px);
+  color:var(--cinza);max-width:52ch;
 }
-.hero .cta{
-  display:inline-block;
-  background:var(--ink);
-  color:var(--bg-soft);
-  padding:16px 36px;
-  font-size:15px;
-  font-weight:500;
-  letter-spacing:.02em;
-  border-radius:2px;
-  transition:transform var(--t), background var(--t);
+.cta-hero{
+  display:inline-block;margin-top:20px;background:var(--preto);color:var(--branco);
+  border:0;border-radius:var(--r);padding:16px 26px;font-size:16px;font-weight:600;
+  transition:transform .15s ease,background .2s ease;width:100%;max-width:340px;
 }
-.hero .cta:hover{background:#1a1a1a;transform:translateY(-1px)}
-.hero .cta:active{transform:translateY(0)}
-.hero .badges{
-  margin-top:32px;
-  display:flex;
-  gap:20px;
-  justify-content:center;
-  flex-wrap:wrap;
-  font-size:13px;
-  color:var(--ink-subtle);
+.cta-hero:hover{background:#000;transform:translateY(-1px)}
+.selos{
+  display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:14px;
+  font-size:12px;color:var(--cinza);letter-spacing:.02em;
 }
-.hero .badges span{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
+.selos b{font-weight:500}
+.selos i{font-style:normal;color:var(--bege)}
+
+/* Foto + cartão */
+.hero-foto{position:relative;order:-1}
+.hero-foto img{
+  width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--r);
+  max-height:34svh;
 }
-.hero .badges span:not(:last-child)::after{
-  content:"·";
-  color:var(--line);
-  font-weight:700;
-  margin-left:20px;
+.stat{
+  position:absolute;left:10px;right:10px;bottom:10px;
+  background:rgba(255,255,255,.90);backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+  border:1px solid var(--bege-linha);border-radius:12px;padding:11px 14px;
+}
+.stat b{
+  display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+  font-size:15px;letter-spacing:-.01em;
+}
+.stat span{display:block;font-size:11.5px;color:var(--cinza);margin-top:2px}
+
+@media (max-height:700px){
+  .hero-foto img{max-height:26svh}
+  .hero{padding-top:14px}
+}
+@media (min-width:900px){
+  .hero{padding:40px 20px 70px}
+  .hero-grid{grid-template-columns:1.05fr .95fr;gap:56px}
+  .hero-foto{order:0;padding-left:34px}
+  .hero-foto img{aspect-ratio:4/3;max-height:none;border-radius:18px}
+  .stat{
+    left:-34px;right:auto;bottom:38px;width:250px;
+    background:var(--branco);backdrop-filter:none;-webkit-backdrop-filter:none;
+    padding:16px 18px;box-shadow:0 16px 40px rgba(17,17,17,.13);
+  }
+  .stat b{font-size:17px}
+  .cta-hero{width:auto}
 }
 
-/* Divider between hero and quiz */
-.section-divider{
-  max-width:1120px;
-  margin:0 auto;
-  padding:0 20px;
-}
-.section-divider hr{
-  border:none;
-  border-top:1px solid var(--line);
-  margin:0;
-}
+/* ───────── Quiz ───────── */
+.quiz-wrap{background:var(--bege-claro);border-top:1px solid var(--bege-linha);
+  padding:34px 20px 70px}
+.quiz{max-width:660px;margin:0 auto;background:var(--branco);
+  border:1px solid var(--bege-linha);border-radius:18px;padding:24px 20px 26px}
+@media(min-width:700px){.quiz{padding:34px 34px 36px}}
 
-/* Quiz */
-.quiz-wrap{
-  padding:56px 20px 80px;
-  max-width:640px;
-  margin:0 auto;
-}
-.progress{
-  margin-bottom:36px;
-}
-.progress-meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:12px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--ink-muted);
-  margin-bottom:12px;
-}
-.progress-meta .step-label{font-weight:500}
-.progress-bar{
-  height:2px;
-  background:var(--line-soft);
-  position:relative;
-  overflow:hidden;
-}
-.progress-bar span{
-  position:absolute;
-  inset:0 auto 0 0;
-  background:var(--ink);
-  width:0%;
-  transition:width 400ms cubic-bezier(.2,.7,.2,1);
-}
+.barra{height:5px;background:var(--bege-linha);border-radius:99px;overflow:hidden}
+.barra i{display:block;height:100%;width:20%;background:var(--bege);
+  border-radius:99px;transition:width .45s cubic-bezier(.4,0,.2,1)}
+.passo-conta{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cinza);margin:12px 0 4px}
+.passo h2{font-family:'Fraunces',Georgia,serif;font-weight:600;
+  font-size:clamp(21px,5.2vw,28px);letter-spacing:-.02em;margin-bottom:20px}
 
-.step{display:none}
-.step.active{display:block;animation:fadeUp .4s ease}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
-}
+.passo{display:none}
+.passo.ativo{display:block;animation:entra .3s ease}
+@keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-.step-number{
-  font-family:var(--serif);
-  font-style:italic;
-  font-size:14px;
-  color:var(--ink-muted);
-  margin-bottom:8px;
-  letter-spacing:.02em;
-}
-.step-title{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:clamp(28px, 4.5vw, 36px);
-  line-height:1.15;
-  color:var(--ink);
-  margin-bottom:32px;
-  letter-spacing:-.005em;
-}
-.step-title em{font-style:italic;font-weight:400}
+.campo{margin-bottom:20px}
+.campo.oculto{display:none}
+.campo>label,.rot{display:block;font-size:14.5px;font-weight:600;margin-bottom:9px}
+.dica{display:block;font-weight:400;font-size:12.5px;color:var(--cinza);margin-top:2px}
 
-.field{margin-bottom:28px}
-.field-label{
-  display:block;
-  font-size:14px;
-  font-weight:500;
-  color:var(--ink);
-  margin-bottom:12px;
-}
-.field-hint{
-  font-size:13px;
-  color:var(--ink-subtle);
-  margin-top:6px;
-  margin-bottom:12px;
-}
-
-/* Option grid */
-.opt-grid{
-  display:grid;
-  gap:10px;
-}
-.opt-grid.cols-2{grid-template-columns:1fr 1fr}
-.opt-grid.cols-3{grid-template-columns:repeat(3, 1fr)}
-.opt-grid.cols-4{grid-template-columns:repeat(4, 1fr)}
-@media (max-width:520px){
-  .opt-grid.cols-3,
-  .opt-grid.cols-4{grid-template-columns:1fr 1fr}
-}
-
+.opts{display:grid;gap:8px}
+.opts.g2{grid-template-columns:1fr 1fr}
+.opts.g4{grid-template-columns:repeat(4,1fr)}
 .opt{
-  background:var(--bg-elevated);
-  border:1px solid var(--line-soft);
-  padding:16px 18px;
-  font-size:15px;
-  color:var(--ink);
-  text-align:left;
-  transition:border-color var(--t), background var(--t), transform var(--t);
-  border-radius:2px;
-  min-height:56px;
-  display:flex;
-  align-items:center;
-  line-height:1.35;
+  background:var(--branco);border:1px solid var(--bege-linha);border-radius:11px;
+  padding:13px 14px;font-size:14.5px;text-align:left;color:var(--preto);
+  transition:border-color .15s,background .15s;line-height:1.35;
 }
-.opt:hover{
-  border-color:var(--ink);
-  background:#fff;
-}
-.opt.selected{
-  border-color:var(--ink);
-  background:var(--ink);
-  color:var(--bg-soft);
-}
-.opt-grid.cols-3 .opt,
-.opt-grid.cols-4 .opt{
-  justify-content:center;
-  text-align:center;
-  font-weight:500;
-}
+.opt:hover{border-color:var(--bege)}
+.opt[aria-pressed="true"]{background:var(--preto);border-color:var(--preto);color:var(--branco)}
+.opts.g4 .opt,.opts.g2 .opt{text-align:center}
+.opts.chips{grid-template-columns:1fr;gap:8px}
+@media(min-width:560px){.opts.chips{grid-template-columns:1fr 1fr}}
 
-/* Text and select inputs */
-.input, .select{
-  width:100%;
-  padding:14px 16px;
-  font-family:var(--sans);
-  font-size:15px;
-  color:var(--ink);
-  background:var(--bg-elevated);
-  border:1px solid var(--line-soft);
-  border-radius:2px;
-  transition:border-color var(--t), background var(--t);
-  outline:none;
+input[type=text],input[type=tel],input[type=email],input[type=number],select{
+  width:100%;border:1px solid var(--bege-linha);border-radius:11px;
+  padding:13px 14px;font-size:16px;font-family:inherit;color:var(--preto);
+  background:var(--branco);appearance:none;
 }
-.input:focus, .select:focus{
-  border-color:var(--ink);
-  background:#fff;
-}
-.select{
-  appearance:none;
-  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230A0A0A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 16px center;
-  padding-right:44px;
-  cursor:pointer;
-}
+select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%236C6459' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 15px center}
+input:focus,select:focus{border-color:var(--preto);outline:none}
 
-/* Error state */
-.field.error .opt-grid{outline:1px solid var(--error);outline-offset:6px;border-radius:2px}
-.field.error .input,
-.field.error .select{border-color:var(--error);background:var(--error-bg)}
-.field-error-msg{
-  display:none;
-  font-size:13px;
-  color:var(--error);
-  margin-top:8px;
-  font-weight:500;
-}
-.field.error .field-error-msg{display:block}
+.campo.erro .opt,.campo.erro input,.campo.erro select{border-color:var(--vermelho)}
+.campo.erro input,.campo.erro select{background:#FDF3F2}
+.msg-erro{display:none;color:var(--vermelho);font-size:12.5px;margin-top:7px}
+.campo.erro .msg-erro{display:block}
 
-/* Nav buttons */
-.step-nav{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin-top:40px;
-  padding-top:24px;
-  border-top:1px solid var(--line-soft);
-}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--cinza)}
+.consent input{width:19px;height:19px;min-width:19px;margin-top:2px;accent-color:var(--preto)}
+
+.navs{display:flex;gap:10px;margin-top:26px}
 .btn{
-  padding:14px 28px;
-  font-size:14px;
-  font-weight:500;
-  letter-spacing:.02em;
-  border-radius:2px;
-  transition:background var(--t), border-color var(--t), color var(--t), transform var(--t);
-  border:1px solid transparent;
+  border:0;border-radius:12px;padding:15px 20px;font-size:15.5px;font-weight:600;
+  transition:opacity .2s,transform .15s;
 }
-.btn-primary{
-  background:var(--ink);
-  color:var(--bg-soft);
-  border-color:var(--ink);
-  margin-left:auto;
-}
-.btn-primary:hover:not(:disabled){background:#1a1a1a;transform:translateY(-1px)}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed}
-.btn-ghost{
-  background:transparent;
-  color:var(--ink-muted);
-  border-color:var(--line);
-}
-.btn-ghost:hover{color:var(--ink);border-color:var(--ink)}
+.btn-prim{background:var(--preto);color:var(--branco);flex:1}
+.btn-prim:disabled{opacity:.55;cursor:not-allowed}
+.btn-sec{background:transparent;color:var(--cinza);border:1px solid var(--bege-linha)}
 
-/* Sending state */
-.sending{
-  position:fixed;
-  inset:0;
-  background:rgba(227,232,221,.94);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:20px;
-  z-index:99;
-  backdrop-filter:blur(4px);
+/* ───────── Banner cookies ───────── */
+.cookies{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--preto);
+  color:var(--branco);padding:16px 18px;display:none;
 }
-.sending.on{display:flex}
-.sending .spinner{
-  width:32px;
-  height:32px;
-  border:2px solid var(--line);
-  border-top-color:var(--ink);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-}
-.sending p{
-  font-family:var(--serif);
-  font-style:italic;
-  font-size:18px;
-  color:var(--ink);
-}
-@keyframes spin{to{transform:rotate(360deg)}}
+.cookies.on{display:block}
+.cookies-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;
+  gap:12px;align-items:center;justify-content:space-between}
+.cookies p{font-size:12.5px;opacity:.86;max-width:62ch}
+.cookies div{display:flex;gap:8px}
+.cookies button{border:0;border-radius:9px;padding:10px 18px;font-size:13.5px;font-weight:600}
+.c-ok{background:var(--bege);color:var(--preto)}
+.c-no{background:transparent;color:var(--branco);border:1px solid rgba(255,255,255,.35)}
 
-/* Footer */
-.footer{
-  max-width:1120px;
-  margin:0 auto;
-  padding:32px 20px;
-  border-top:1px solid var(--line-soft);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:13px;
-  color:var(--ink-subtle);
-  flex-wrap:wrap;
-  gap:12px;
-}
-.footer a{color:var(--ink-muted);text-decoration:none}
-
-@media (max-width:520px){
-  .topbar{padding:20px 20px 16px}
-  .hero{padding:16px 20px 40px}
-  .hero .badges span:not(:last-child)::after{margin-left:20px}
-  .quiz-wrap{padding:40px 20px 60px}
-  .step-nav .btn{padding:14px 20px}
-}
+.rodape{padding:26px 20px 40px;text-align:center;font-size:11.5px;color:var(--cinza)}
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="wordmark">Paulo <em>Matos</em></div>
-  <div class="contact">
-    <a href="tel:+351919783014" aria-label="Ligar para Paulo Matos">+351 919 783 014</a>
-  </div>
+<header class="topo">
+  <div class="marca">Paulo Matos<span>Consultoria Imobiliária</span></div>
 </header>
 
-<section class="hero" id="hero">
-  <div class="eyebrow">Avaliação gratuita de imóvel</div>
-  <h1>Vender o seu imóvel é uma decisão de peso. <em>Perceba se está pronto para avançar.</em></h1>
-  <p class="lead">Responda a 5 perguntas e descubra, em menos de 3 minutos, se as condições atuais do seu imóvel favorecem uma venda pelo valor certo.</p>
-  <a href="#quiz" class="cta">Iniciar simulação</a>
-  <div class="badges" aria-hidden="true">
-    <span>Menos de 3 minutos</span>
-    <span>Sem compromisso</span>
-    <span>Resultado imediato</span>
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-txt">
+      <h1>A sua casa vale o que pede — ou o que o mercado aceita?
+        <em>Entre as duas respostas podem estar meses.</em></h1>
+      <p class="sub">Duas casas iguais, na mesma rua: uma vende em seis semanas, a outra passa oito meses a envelhecer no portal. A diferença raramente é o imóvel — é um documento em falta ou um preço ancorado no sítio errado. Veja onde está a sua.</p>
+      <button class="cta-hero" id="btnComecar">Começar o diagnóstico →</button>
+      <div class="selos">
+        <b>3 minutos</b><i aria-hidden="true">·</i>
+        <b>Sem compromisso</b><i aria-hidden="true">·</i>
+        <b>Resultado imediato</b>
+      </div>
+    </div>
+    <div class="hero-foto">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=85" alt="Moradia à venda, exterior" fetchpriority="high">
+      <div class="stat">
+        <b>Diagnóstico gratuito</b>
+        <span>Sem visita à casa e sem compromisso de angariação.</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="section-divider"><hr></div>
-
+<!-- ═══════ QUIZ ═══════ -->
 <section class="quiz-wrap" id="quiz">
-
-  <div class="progress" aria-hidden="true">
-    <div class="progress-meta">
-      <span class="step-label">Passo <b id="stepCurrent">1</b> de 5</span>
-      <span id="stepPercent">20%</span>
-    </div>
-    <div class="progress-bar"><span id="progressFill"></span></div>
-  </div>
-
-  <form id="quizForm" novalidate>
+  <div class="quiz">
+    <div class="barra" role="progressbar" aria-label="Progresso do diagnóstico"
+         aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="pb"><i id="pbi"></i></div>
+    <p class="passo-conta" id="conta">Passo 1 de 5</p>
 
     <!-- PASSO 1 -->
-    <div class="step active" data-step="1">
-      <div class="step-number">Passo 01</div>
-      <h2 class="step-title">Comece por nos falar do <em>seu imóvel</em>.</h2>
+    <div class="passo ativo" data-passo="1">
+      <h2>Comecemos pelo imóvel</h2>
 
-      <div class="field" data-required="tipo">
-        <label class="field-label">Tipo de imóvel</label>
-        <div class="opt-grid cols-3">
-          <button type="button" class="opt" data-name="tipo" data-value="Apartamento">Apartamento</button>
-          <button type="button" class="opt" data-name="tipo" data-value="Moradia">Moradia</button>
-          <button type="button" class="opt" data-name="tipo" data-value="Terreno">Terreno</button>
+      <div class="campo" data-campo="tipo">
+        <span class="rot" id="l-tipo">Que tipo de imóvel quer vender?</span>
+        <div class="opts g2" role="group" aria-labelledby="l-tipo">
+          <button type="button" class="opt" aria-pressed="false" data-val="Apartamento">Apartamento</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Moradia">Moradia</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Terreno">Terreno</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Outro">Outro</button>
         </div>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="field" data-required="tipologia" id="fieldTipologia">
-        <label class="field-label">Tipologia</label>
-        <div class="opt-grid cols-4">
-          <button type="button" class="opt" data-name="tipologia" data-value="T1">T1</button>
-          <button type="button" class="opt" data-name="tipologia" data-value="T2">T2</button>
-          <button type="button" class="opt" data-name="tipologia" data-value="T3">T3</button>
-          <button type="button" class="opt" data-name="tipologia" data-value="T4+">T4+</button>
+      <div class="campo" data-campo="tipologia" id="c-tipologia">
+        <span class="rot" id="l-tipologia">Tipologia</span>
+        <div class="opts g4" role="group" aria-labelledby="l-tipologia">
+          <button type="button" class="opt" aria-pressed="false" data-val="T0/T1">T0/T1</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="T2">T2</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="T3">T3</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="T4+">T4+</button>
         </div>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="field" data-required="localizacao">
-        <label class="field-label" for="localizacao">Localização do imóvel</label>
-        <input class="input" type="text" id="localizacao" name="localizacao" placeholder="Concelho ou zona (ex: Cascais, Estrela, Braga)" autocomplete="off">
-        <div class="field-error-msg">Indique a localização do imóvel.</div>
+      <div class="campo" data-campo="area">
+        <label for="i-area">Área aproximada (m²)</label>
+        <input type="number" id="i-area" inputmode="numeric" min="10" max="5000" placeholder="Ex.: 120">
+        <span class="msg-erro">Indique uma área entre 10 e 5000 m².</span>
       </div>
 
-      <div class="step-nav">
-        <button type="button" class="btn btn-primary" data-action="next">Continuar</button>
+      <div class="campo" data-campo="local">
+        <label for="i-local">Onde fica? <span class="dica">Concelho e freguesia.</span></label>
+        <input type="text" id="i-local" placeholder="Ex.: Loures, Santo Antão do Tojal">
+        <span class="msg-erro">Indique o concelho e a freguesia.</span>
+      </div>
+
+      <div class="campo" data-campo="ano">
+        <label for="i-ano">Ano de construção</label>
+        <select id="i-ano">
+          <option value="">Selecionar…</option>
+          <option>Antes de 1980</option>
+          <option>1980–2000</option>
+          <option>2001–2015</option>
+          <option>Depois de 2015</option>
+          <option>Não sei ao certo</option>
+        </select>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
     </div>
 
     <!-- PASSO 2 -->
-    <div class="step" data-step="2">
-      <div class="step-number">Passo 02</div>
-      <h2 class="step-title">Em que <em>estado</em> se encontra?</h2>
+    <div class="passo" data-passo="2">
+      <h2>Quem é o dono e o que já tem em mãos</h2>
 
-      <div class="field" data-required="estado">
-        <label class="field-label">Estado do imóvel</label>
-        <div class="opt-grid">
-          <button type="button" class="opt" data-name="estado" data-value="Novo ou recuperado">Novo ou recuperado</button>
-          <button type="button" class="opt" data-name="estado" data-value="Usado em bom estado">Usado em bom estado</button>
-          <button type="button" class="opt" data-name="estado" data-value="Precisa de obras">Precisa de obras</button>
+      <div class="campo" data-campo="proprietario">
+        <span class="rot" id="l-prop">Quem é o proprietário do imóvel?</span>
+        <div class="opts" role="group" aria-labelledby="l-prop">
+          <button type="button" class="opt" aria-pressed="false" data-val="Só eu">Só eu</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Eu e o meu cônjuge">Eu e o meu cônjuge</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="É uma herança ou partilha">É uma herança ou partilha</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Vários proprietários">Vários proprietários</button>
         </div>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="field" data-required="area">
-        <label class="field-label" for="area">Área aproximada</label>
-        <select class="select" id="area" name="area">
-          <option value="">Selecione uma opção</option>
-          <option value="Até 60 m²">Até 60 m²</option>
-          <option value="60 a 90 m²">60 a 90 m²</option>
-          <option value="90 a 130 m²">90 a 130 m²</option>
-          <option value="130 a 180 m²">130 a 180 m²</option>
-          <option value="Mais de 180 m²">Mais de 180 m²</option>
-          <option value="Não sei ao certo">Não sei ao certo</option>
-        </select>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+      <div class="campo oculto" data-campo="acordo" id="c-acordo">
+        <span class="rot" id="l-acordo">Estão todos de acordo em vender?</span>
+        <div class="opts" role="group" aria-labelledby="l-acordo">
+          <button type="button" class="opt" aria-pressed="false" data-val="Sim, está tudo acordado">Sim, está tudo acordado</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Ainda não há acordo entre todos">Ainda não há acordo entre todos</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Não sei / ainda não falámos">Não sei / ainda não falámos</button>
+        </div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="step-nav">
-        <button type="button" class="btn btn-ghost" data-action="prev">Voltar</button>
-        <button type="button" class="btn btn-primary" data-action="next">Continuar</button>
+      <div class="campo" data-campo="docs" data-multi="1">
+        <span class="rot" id="l-docs">Que documentos já tem?
+          <span class="dica">Pode escolher vários.</span></span>
+        <div class="opts chips" role="group" aria-labelledby="l-docs">
+          <button type="button" class="opt" aria-pressed="false" data-val="Caderneta predial">Caderneta predial</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Certidão permanente do registo">Certidão permanente do registo</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Licença de utilização">Licença de utilização</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Certificado energético">Certificado energético</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Nenhum destes / não sei" data-exclusiva="1">Nenhum destes / não sei</button>
+        </div>
+        <span class="msg-erro">Escolha pelo menos uma opção.</span>
+      </div>
+
+      <div class="campo" data-campo="encargos">
+        <span class="rot" id="l-enc">O imóvel tem algum encargo?</span>
+        <div class="opts" role="group" aria-labelledby="l-enc">
+          <button type="button" class="opt" aria-pressed="false" data-val="Não, está livre">Não, está livre</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Hipoteca — tenho crédito">Hipoteca — tenho crédito</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Penhora ou processo judicial">Penhora ou processo judicial</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Usufruto">Usufruto</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Não sei">Não sei</button>
+        </div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
     </div>
 
     <!-- PASSO 3 -->
-    <div class="step" data-step="3">
-      <div class="step-number">Passo 03</div>
-      <h2 class="step-title">Vamos perceber a sua <em>margem de manobra</em>.</h2>
+    <div class="passo" data-passo="3">
+      <h2>O preço — e de onde vem esse número</h2>
 
-      <div class="field" data-required="credito">
-        <label class="field-label">Tem crédito habitação ativo sobre este imóvel?</label>
-        <div class="opt-grid cols-2">
-          <button type="button" class="opt" data-name="credito" data-value="Sim">Sim</button>
-          <button type="button" class="opt" data-name="credito" data-value="Não">Não</button>
+      <div class="campo" data-campo="valor">
+        <label for="i-valor">Por quanto pretende vender?</label>
+        <select id="i-valor">
+          <option value="">Selecionar…</option>
+          <option>Até 150.000 €</option>
+          <option>150.000 € – 250.000 €</option>
+          <option>250.000 € – 400.000 €</option>
+          <option>400.000 € – 600.000 €</option>
+          <option>Mais de 600.000 €</option>
+          <option>Ainda não defini</option>
+        </select>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
+      </div>
+
+      <div class="campo" data-campo="origem_valor">
+        <span class="rot" id="l-orig">Como chegou a esse valor?</span>
+        <div class="opts" role="group" aria-labelledby="l-orig">
+          <button type="button" class="opt" aria-pressed="false" data-val="Fiz uma avaliação profissional">Fiz uma avaliação profissional</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Vi anúncios de casas parecidas">Vi anúncios de casas parecidas</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="É o valor de que preciso para os meus planos">É o valor de que preciso para os meus planos</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Sinceramente, não faço ideia">Sinceramente, não faço ideia</button>
         </div>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="field" data-required="divida" id="fieldDivida">
-        <label class="field-label" for="divida">Capital em dívida</label>
-        <select class="select" id="divida" name="divida">
-          <option value="">Selecione uma opção</option>
-          <option value="Menos de 50k">Menos de 50k</option>
-          <option value="50k a 100k">50k a 100k</option>
-          <option value="100k a 200k">100k a 200k</option>
-          <option value="Mais de 200k">Mais de 200k</option>
+      <div class="campo" data-campo="divida">
+        <label for="i-divida">Tem capital em dívida ao banco?</label>
+        <select id="i-divida">
+          <option value="">Selecionar…</option>
+          <option>Não tenho crédito — está pago</option>
+          <option>Menos de 50.000 €</option>
+          <option>50.000 € – 100.000 €</option>
+          <option>100.000 € – 200.000 €</option>
+          <option>Mais de 200.000 €</option>
+          <option>Não sei</option>
         </select>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="field" data-required="valor">
-        <label class="field-label" for="valor">Valor pretendido de venda</label>
-        <select class="select" id="valor" name="valor">
-          <option value="">Selecione uma opção</option>
-          <option value="Até 150k">Até 150k</option>
-          <option value="150k a 300k">150k a 300k</option>
-          <option value="300k a 500k">300k a 500k</option>
-          <option value="500k a 750k">500k a 750k</option>
-          <option value="Mais de 750k">Mais de 750k</option>
-          <option value="Aberto a avaliação de mercado">Aberto a avaliação de mercado</option>
-        </select>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
-      </div>
-
-      <div class="step-nav">
-        <button type="button" class="btn btn-ghost" data-action="prev">Voltar</button>
-        <button type="button" class="btn btn-primary" data-action="next">Continuar</button>
+      <div class="campo" data-campo="margem">
+        <span class="rot" id="l-marg">Tem margem de negociação?</span>
+        <div class="opts" role="group" aria-labelledby="l-marg">
+          <button type="button" class="opt" aria-pressed="false" data-val="Sim, tenho alguma margem">Sim, tenho alguma margem</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Pouca — só para fechar negócio">Pouca — só para fechar negócio</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Nenhuma, é este valor">Nenhuma, é este valor</button>
+        </div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
     </div>
 
     <!-- PASSO 4 -->
-    <div class="step" data-step="4">
-      <div class="step-number">Passo 04</div>
-      <h2 class="step-title">Em quanto tempo quer <em>concretizar</em>?</h2>
+    <div class="passo" data-passo="4">
+      <h2>O seu contexto</h2>
 
-      <div class="field" data-required="prazo">
-        <label class="field-label">Prazo pretendido</label>
-        <div class="opt-grid">
-          <button type="button" class="opt" data-name="prazo" data-value="O mais rápido possível">O mais rápido possível</button>
-          <button type="button" class="opt" data-name="prazo" data-value="Menos de 3 meses">Menos de 3 meses</button>
-          <button type="button" class="opt" data-name="prazo" data-value="3 a 6 meses">3 a 6 meses</button>
-          <button type="button" class="opt" data-name="prazo" data-value="Mais de 6 meses">Mais de 6 meses</button>
+      <div class="campo" data-campo="motivo">
+        <span class="rot" id="l-mot">Porque está a vender?</span>
+        <div class="opts" role="group" aria-labelledby="l-mot">
+          <button type="button" class="opt" aria-pressed="false" data-val="Vou mudar de casa">Vou mudar de casa</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Recebi uma herança">Recebi uma herança</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Quero rentabilizar o investimento">Quero rentabilizar o investimento</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Mudança de vida (trabalho, separação, família)">Mudança de vida (trabalho, separação, família)</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Vou emigrar">Vou emigrar</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Outro">Outro</button>
         </div>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="field" data-required="motivo">
-        <label class="field-label">Motivo principal para vender</label>
-        <div class="opt-grid">
-          <button type="button" class="opt" data-name="motivo" data-value="Mudança de casa">Mudança de casa</button>
-          <button type="button" class="opt" data-name="motivo" data-value="Herança ou partilha">Herança ou partilha</button>
-          <button type="button" class="opt" data-name="motivo" data-value="Investimento">Investimento</button>
-          <button type="button" class="opt" data-name="motivo" data-value="Razões financeiras">Razões financeiras</button>
-          <button type="button" class="opt" data-name="motivo" data-value="Outro">Outro</button>
+      <div class="campo" data-campo="prazo">
+        <span class="rot" id="l-prz">Em quanto tempo quer vender?</span>
+        <div class="opts" role="group" aria-labelledby="l-prz">
+          <button type="button" class="opt" aria-pressed="false" data-val="O mais rápido possível">O mais rápido possível</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Até 3 meses">Até 3 meses</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="3 a 6 meses">3 a 6 meses</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Mais de 6 meses">Mais de 6 meses</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Estou só a explorar a ideia">Estou só a explorar a ideia</button>
         </div>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="step-nav">
-        <button type="button" class="btn btn-ghost" data-action="prev">Voltar</button>
-        <button type="button" class="btn btn-primary" data-action="next">Continuar</button>
+      <div class="campo" data-campo="ocupacao">
+        <span class="rot" id="l-ocu">Como está o imóvel neste momento?</span>
+        <div class="opts" role="group" aria-labelledby="l-ocu">
+          <button type="button" class="opt" aria-pressed="false" data-val="Vivo lá">Vivo lá</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Está vazio">Está vazio</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Está arrendado a inquilinos">Está arrendado a inquilinos</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Uso ocasional">Uso ocasional</button>
+        </div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
+      </div>
+
+      <div class="campo" data-campo="ja_venda">
+        <span class="rot" id="l-jav">Já está à venda?</span>
+        <div class="opts" role="group" aria-labelledby="l-jav">
+          <button type="button" class="opt" aria-pressed="false" data-val="Não, ainda não">Não, ainda não</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Sim, com agência em exclusivo">Sim, com agência em exclusivo</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Sim, com agência sem exclusivo">Sim, com agência sem exclusivo</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Sim, por minha conta">Sim, por minha conta</button>
+        </div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
+      </div>
+
+      <div class="campo oculto" data-campo="tempo_mercado" id="c-tempo">
+        <label for="i-tempo">Há quanto tempo está no mercado?</label>
+        <select id="i-tempo">
+          <option value="">Selecionar…</option>
+          <option>Menos de 1 mês</option>
+          <option>1 a 3 meses</option>
+          <option>3 a 6 meses</option>
+          <option>Mais de 6 meses</option>
+        </select>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
     </div>
 
     <!-- PASSO 5 -->
-    <div class="step" data-step="5">
-      <div class="step-number">Passo 05</div>
-      <h2 class="step-title">Falta pouco. <em>Como o contactamos?</em></h2>
+    <div class="passo" data-passo="5">
+      <h2>Para onde enviamos o diagnóstico</h2>
 
-      <div class="field" data-required="avaliacao48h">
-        <label class="field-label">Fazemos uma avaliação gratuita do seu imóvel no prazo de 48 horas. Possui interesse?</label>
-        <div class="opt-grid cols-2">
-          <button type="button" class="opt" data-name="avaliacao48h" data-value="Sim">Sim</button>
-          <button type="button" class="opt" data-name="avaliacao48h" data-value="Não">Não</button>
+      <div class="campo" data-campo="nome">
+        <label for="i-nome">Nome completo</label>
+        <input type="text" id="i-nome" autocomplete="name" placeholder="Nome e apelido">
+        <span class="msg-erro">Escreva o nome completo (nome e apelido).</span>
+      </div>
+
+      <div class="campo" data-campo="tel">
+        <label for="i-tel">Telemóvel</label>
+        <input type="tel" id="i-tel" inputmode="tel" autocomplete="tel" placeholder="912 345 678">
+        <span class="msg-erro">Indique um telemóvel válido (mínimo 9 dígitos).</span>
+      </div>
+
+      <div class="campo" data-campo="email">
+        <label for="i-email">E-mail</label>
+        <input type="email" id="i-email" autocomplete="email" placeholder="nome@email.com">
+        <span class="msg-erro">Indique um e-mail válido.</span>
+      </div>
+
+      <div class="campo" data-campo="avaliacao">
+        <span class="rot" id="l-aval">Quer marcar uma avaliação gratuita?</span>
+        <div class="opts" role="group" aria-labelledby="l-aval">
+          <button type="button" class="opt" aria-pressed="false" data-val="Sim, quero marcar">Sim, quero marcar</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Talvez — primeiro quero saber mais">Talvez — primeiro quero saber mais</button>
+          <button type="button" class="opt" aria-pressed="false" data-val="Não, só queria o diagnóstico">Não, só queria o diagnóstico</button>
         </div>
-        <div class="field-error-msg">Selecione uma opção para continuar.</div>
+        <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="field" data-required="nome">
-        <label class="field-label" for="nome">Nome completo</label>
-        <input class="input" type="text" id="nome" name="nome" placeholder="O seu nome" autocomplete="name">
-        <div class="field-error-msg">Indique o seu nome completo.</div>
-      </div>
-
-      <div class="field" data-required="tel">
-        <label class="field-label" for="tel">Telemóvel</label>
-        <input class="input" type="tel" id="tel" name="tel" placeholder="Ex: 912 345 678" inputmode="tel" autocomplete="tel">
-        <div class="field-error-msg">Indique um telemóvel válido (mínimo 9 dígitos).</div>
-      </div>
-
-      <div class="field" data-required="email">
-        <label class="field-label" for="email">Endereço de email</label>
-        <input class="input" type="email" id="email" name="email" placeholder="seu.email@exemplo.com" autocomplete="email">
-        <div class="field-error-msg">Indique um email válido.</div>
-      </div>
-
-      <div class="step-nav">
-        <button type="button" class="btn btn-ghost" data-action="prev">Voltar</button>
-        <button type="button" class="btn btn-primary" id="submitBtn" data-action="submit">Ver resultado</button>
+      <div class="campo" data-campo="consent">
+        <div class="consent">
+          <input type="checkbox" id="i-consent">
+          <label for="i-consent">Autorizo a Paulo Matos — Consultoria Imobiliária a contactar-me sobre o meu diagnóstico.</label>
+        </div>
+        <span class="msg-erro">É necessário autorizar o contacto para receber o diagnóstico.</span>
       </div>
     </div>
 
-  </form>
+    <div class="navs">
+      <button type="button" class="btn btn-sec" id="btnVoltar" style="display:none">Voltar</button>
+      <button type="button" class="btn btn-prim" id="btnSeguir">Continuar</button>
+    </div>
+  </div>
 </section>
 
-<div class="sending" id="sending" role="status" aria-live="polite">
-  <div class="spinner" aria-hidden="true"></div>
-  <p>A preparar o seu resultado</p>
-</div>
-
-<footer class="footer">
-  <div>Paulo Matos · Mediação imobiliária</div>
-  <div><a href="tel:+351919783014">+351 919 783 014</a></div>
+<footer class="rodape">
+  <a href="tel:+351919783014" style="color:inherit">+351 919 783 014</a> ·
+  <a href="mailto:pjmatos@century21.pt" style="color:inherit">pjmatos@century21.pt</a><br>
+  © <span id="ano"></span> Paulo Matos — Consultoria Imobiliária
 </footer>
 
+<!-- ═══════ BANNER DE CONSENTIMENTO ═══════ -->
+<div class="cookies" id="cookies" role="dialog" aria-label="Consentimento de cookies">
+  <div class="cookies-in">
+    <p>Usamos cookies de publicidade para medir a eficácia dos nossos anúncios. Se recusar, o diagnóstico funciona na mesma — só não é medido.</p>
+    <div>
+      <button class="c-no" id="cNo">Recusar</button>
+      <button class="c-ok" id="cOk">Aceitar</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* =========================================================================
-   Estado das respostas
-   ========================================================================= */
-const A = {
-  tipo:null, tipologia:null, localizacao:'',
-  estado:null, area:'',
-  credito:null, divida:'', valor:'',
-  prazo:null, motivo:null,
-  avaliacao48h:null, nome:'', tel:'', email:''
+/* ═══════════════════ CONFIGURAÇÃO DO CLIENTE ═══════════════════
+   ⚠️ PREENCHER antes de publicar (BLOCO 1 do prompt-mestre).      */
+var WEBHOOK_URL  = '';                    /* Webhook GoHighLevel   */
+var NOME_ORIGEM  = 'Simulador Diagnóstico de Venda — Paulo Matos';
+var MARCA        = 'Paulo Matos';
+var CHAVE_UNICA  = 'diag_paulomatos';
+var PREFIXO_PAIS = '351';
+/* ══════════════════════════════════════════════════════════════ */
+
+document.getElementById('ano').textContent = new Date().getFullYear();
+
+/* ---------- Banner de consentimento ---------- */
+(function(){
+  var el = document.getElementById('cookies');
+  var escolhido = null;
+  try { escolhido = localStorage.getItem(CHAVE_CONSENTIMENTO); } catch(e){}
+  if(!escolhido) el.classList.add('on');
+  function guarda(v){
+    try { localStorage.setItem(CHAVE_CONSENTIMENTO, v); } catch(e){}
+    el.classList.remove('on');
+  }
+  document.getElementById('cOk').addEventListener('click', function(){
+    guarda('aceite'); carregarPixel();
+  });
+  document.getElementById('cNo').addEventListener('click', function(){
+    guarda('recusado');
+  });
+})();
+
+/* ---------- Estado ---------- */
+var A = { docs: [] };
+var passo = 1, aEnviar = false;
+var pbi   = document.getElementById('pbi');
+var pb    = document.getElementById('pb');
+var conta = document.getElementById('conta');
+var btn   = document.getElementById('btnSeguir');
+var btnV  = document.getElementById('btnVoltar');
+
+var CAMPOS_PASSO = {
+  1:['tipo','tipologia','area','local','ano'],
+  2:['proprietario','acordo','docs','encargos'],
+  3:['valor','origem_valor','divida','margem'],
+  4:['motivo','prazo','ocupacao','ja_venda','tempo_mercado'],
+  5:['nome','tel','email','avaliacao','consent']
 };
 
-const TOTAL_STEPS = 5;
-let currentStep = 1;
+function elCampo(nome){ return document.querySelector('[data-campo="'+nome+'"]'); }
+function visivel(el){ return el && !el.classList.contains('oculto'); }
 
-/* =========================================================================
-   Navegação de passos
-   ========================================================================= */
-function mostrarPasso(n){
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-  const el = document.querySelector('.step[data-step="'+n+'"]');
-  if(el) el.classList.add('active');
-  currentStep = n;
-  atualizarProgresso();
-  window.scrollTo({top:document.getElementById('quiz').offsetTop - 20, behavior:'smooth'});
-}
+/* ---------- Botões de opção ---------- */
+document.querySelectorAll('.campo .opt').forEach(function(b){
+  b.addEventListener('click', function(){
+    var campo = b.closest('.campo');
+    var nome  = campo.getAttribute('data-campo');
+    campo.classList.remove('erro');
 
-function atualizarProgresso(){
-  const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
-  document.getElementById('stepCurrent').textContent = currentStep;
-  document.getElementById('stepPercent').textContent = pct + '%';
-  document.getElementById('progressFill').style.width = pct + '%';
-}
-
-/* =========================================================================
-   Seleção de opções (botões)
-   ========================================================================= */
-document.querySelectorAll('.opt').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const name = btn.dataset.name;
-    const value = btn.dataset.value;
-    document.querySelectorAll('.opt[data-name="'+name+'"]').forEach(b=>b.classList.remove('selected'));
-    btn.classList.add('selected');
-    A[name] = value;
-    btn.closest('.field').classList.remove('error');
-    aplicarCondicionais();
-  });
-});
-
-/* =========================================================================
-   Regras condicionais
-   ========================================================================= */
-function aplicarCondicionais(){
-  // Tipologia esconde se Terreno
-  const tipologia = document.getElementById('fieldTipologia');
-  if(A.tipo === 'Terreno'){
-    tipologia.style.display = 'none';
-    tipologia.removeAttribute('data-required');
-    A.tipologia = null;
-    tipologia.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));
-  } else {
-    tipologia.style.display = '';
-    tipologia.setAttribute('data-required','tipologia');
-  }
-
-  // Capital em dívida só se tem crédito
-  const divida = document.getElementById('fieldDivida');
-  if(A.credito === 'Sim'){
-    divida.style.display = '';
-    divida.setAttribute('data-required','divida');
-  } else {
-    divida.style.display = 'none';
-    divida.removeAttribute('data-required');
-    A.divida = '';
-    document.getElementById('divida').value = '';
-  }
-}
-aplicarCondicionais();
-
-/* =========================================================================
-   Inputs de texto e select
-   ========================================================================= */
-document.querySelectorAll('.input, .select').forEach(inp=>{
-  inp.addEventListener('input', ()=>{
-    A[inp.name] = inp.value;
-    inp.closest('.field').classList.remove('error');
-  });
-  inp.addEventListener('change', ()=>{
-    A[inp.name] = inp.value;
-    inp.closest('.field').classList.remove('error');
-  });
-});
-
-/* =========================================================================
-   Validação por passo
-   ========================================================================= */
-function emailValido(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v||'').trim()); }
-function telValido(v){ return ((v||'').replace(/\D/g,'').length) >= 9; }
-
-function validarPasso(n){
-  const stepEl = document.querySelector('.step[data-step="'+n+'"]');
-  const campos = stepEl.querySelectorAll('.field[data-required]');
-  let ok = true;
-
-  campos.forEach(f=>{
-    if(f.style.display === 'none') return;
-    const key = f.dataset.required;
-    let valor = A[key];
-
-    let invalido = !valor || (typeof valor === 'string' && valor.trim() === '');
-
-    // Regras específicas
-    if(key === 'email' && !emailValido(valor)) invalido = true;
-    if(key === 'tel' && !telValido(valor)) invalido = true;
-    if(key === 'nome' && (valor||'').trim().length < 2) invalido = true;
-
-    if(invalido){
-      f.classList.add('error');
-      ok = false;
+    if(campo.hasAttribute('data-multi')){
+      var exclusiva = b.hasAttribute('data-exclusiva');
+      var ativo = b.getAttribute('aria-pressed') === 'true';
+      if(exclusiva){
+        campo.querySelectorAll('.opt').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed', ativo ? 'false' : 'true');
+      } else {
+        var exc = campo.querySelector('[data-exclusiva]');
+        if(exc) exc.setAttribute('aria-pressed','false');
+        b.setAttribute('aria-pressed', ativo ? 'false' : 'true');
+      }
+      var sel = [];
+      campo.querySelectorAll('.opt[aria-pressed="true"]').forEach(function(o){
+        sel.push(o.getAttribute('data-val'));
+      });
+      A[nome] = sel;
     } else {
-      f.classList.remove('error');
+      campo.querySelectorAll('.opt').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      A[nome] = b.getAttribute('data-val');
+      condicionais(nome);
     }
   });
+});
 
+/* ---------- Inputs ---------- */
+[['i-area','area'],['i-local','local'],['i-ano','ano'],['i-valor','valor'],
+ ['i-divida','divida'],['i-tempo','tempo_mercado'],['i-nome','nome'],
+ ['i-tel','tel'],['i-email','email']].forEach(function(p){
+  var el = document.getElementById(p[0]);
+  el.addEventListener('input', function(){
+    A[p[1]] = el.value.trim();
+    el.closest('.campo').classList.remove('erro');
+  });
+  el.addEventListener('change', function(){
+    A[p[1]] = el.value.trim();
+    el.closest('.campo').classList.remove('erro');
+  });
+});
+document.getElementById('i-consent').addEventListener('change', function(){
+  A.consent = this.checked;
+  this.closest('.campo').classList.remove('erro');
+});
+
+/* ---------- Perguntas condicionais ---------- */
+function esconde(campo, nome){
+  campo.classList.add('oculto');
+  campo.classList.remove('erro');
+  campo.querySelectorAll('.opt').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+  campo.querySelectorAll('select,input').forEach(function(i){ i.value=''; });
+  delete A[nome];
+}
+function condicionais(alterado){
+  if(alterado === 'tipo'){
+    var c = document.getElementById('c-tipologia');
+    if(A.tipo === 'Terreno') esconde(c,'tipologia'); else c.classList.remove('oculto');
+  }
+  if(alterado === 'proprietario'){
+    var c2 = document.getElementById('c-acordo');
+    if(!A.proprietario || A.proprietario === 'Só eu') esconde(c2,'acordo');
+    else c2.classList.remove('oculto');
+  }
+  if(alterado === 'ja_venda'){
+    var c3 = document.getElementById('c-tempo');
+    if(!A.ja_venda || A.ja_venda === 'Não, ainda não') esconde(c3,'tempo_mercado');
+    else c3.classList.remove('oculto');
+  }
+}
+condicionais('proprietario');
+condicionais('ja_venda');
+
+/* ---------- Validação ---------- */
+var RX_EMAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
+function validaCampo(nome){
+  var campo = elCampo(nome);
+  if(!visivel(campo)) return true;
+  var v = A[nome];
+  switch(nome){
+    case 'docs':   return Array.isArray(v) && v.length > 0;
+    case 'area':   var n = parseInt(v,10); return !isNaN(n) && n >= 10 && n <= 5000;
+    case 'local':  return !!v && v.length >= 3;
+    case 'nome':   return !!v && v.length >= 3 && /\s/.test(v.trim());
+    case 'tel':    return !!v && (v.replace(/\D/g,'').length >= 9);
+    case 'email':  return !!v && RX_EMAIL.test(v);
+    case 'consent':return v === true;
+    default:       return !!v;
+  }
+}
+
+function validaPasso(n){
+  var ok = true, primeiro = null;
+  CAMPOS_PASSO[n].forEach(function(nome){
+    var campo = elCampo(nome);
+    if(!visivel(campo)) return;
+    if(validaCampo(nome)){ campo.classList.remove('erro'); }
+    else { campo.classList.add('erro'); ok = false; if(!primeiro) primeiro = campo; }
+  });
+  if(primeiro) primeiro.scrollIntoView({behavior:'smooth', block:'center'});
   return ok;
 }
 
-/* =========================================================================
-   Botões Voltar / Continuar / Submeter
-   ========================================================================= */
-document.querySelectorAll('[data-action]').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const a = btn.dataset.action;
-    if(a === 'next'){
-      if(!validarPasso(currentStep)) return;
-      if(currentStep < TOTAL_STEPS) mostrarPasso(currentStep + 1);
-    } else if(a === 'prev'){
-      if(currentStep > 1) mostrarPasso(currentStep - 1);
-    } else if(a === 'submit'){
-      if(!validarPasso(currentStep)) return;
-      finalizar();
-    }
+/* ---------- Navegação ---------- */
+function mostra(n){
+  document.querySelectorAll('.passo').forEach(function(p){
+    p.classList.toggle('ativo', p.getAttribute('data-passo') === String(n));
   });
+  pbi.style.width = (n/5*100) + '%';
+  pb.setAttribute('aria-valuenow', n);
+  conta.textContent = 'Passo ' + n + ' de 5';
+  btnV.style.display = n === 1 ? 'none' : 'block';
+  btn.textContent = n === 5 ? 'Ver o meu diagnóstico' : 'Continuar';
+  window.scrollTo({ top: document.getElementById('quiz').offsetTop - 12, behavior:'smooth' });
+}
+btn.addEventListener('click', function(){
+  if(!validaPasso(passo)) return;
+  if(passo < 5){ passo++; mostra(passo); }
+  else finalizar();
+});
+btnV.addEventListener('click', function(){
+  if(passo > 1){ passo--; mostra(passo); }
+});
+document.getElementById('btnComecar').addEventListener('click', function(){
+  window.scrollTo({ top: document.getElementById('quiz').offsetTop - 12, behavior:'smooth' });
 });
 
-/* =========================================================================
-   Score de viabilidade (0 a 10, base 5)
-   Focado em vendedor: quanto mais preparado o imóvel e o proprietário,
-   maior o score.
-   ========================================================================= */
-function calcularScore(){
-  let s = 5;
+/* ═══════════════ MOTOR DE DIAGNÓSTICO (3 eixos) ═══════════════ */
+var DOCS = [
+  {k:'Caderneta predial',              peso:10, onde:'Pede-se no Portal das Finanças. É gratuita e sai na hora.'},
+  {k:'Certidão permanente do registo', peso:10, onde:'Pede-se em predialonline.pt ou numa Conservatória do Registo Predial.'},
+  {k:'Licença de utilização',          peso:15, onde:'Pede-se na Câmara Municipal do concelho do imóvel.'},
+  {k:'Certificado energético',         peso:25, onde:'Emitido por perito qualificado ADENE.', bloqueia:true}
+];
 
-  // Estado do imóvel
-  if(A.estado === 'Novo ou recuperado') s += 1;
-  else if(A.estado === 'Precisa de obras') s -= 0.5;
+function lim(n){ return Math.max(0, Math.min(100, Math.round(n))); }
 
-  // Crédito habitação
-  if(A.credito === 'Não') s += 1;
-  if(A.credito === 'Sim'){
-    if(A.divida === 'Menos de 50k') s += 0.5;
-    else if(A.divida === '100k a 200k') s -= 0.5;
-    else if(A.divida === 'Mais de 200k') s -= 1;
-  }
+function diagnosticar(){
+  var tem = Array.isArray(A.docs) ? A.docs : [];
+  var faltam = DOCS.filter(function(d){ return tem.indexOf(d.k) === -1; });
 
-  // Prazo
-  if(A.prazo === 'Menos de 3 meses') s += 1;
-  else if(A.prazo === 'O mais rápido possível') s += 0.5;
-  else if(A.prazo === '3 a 6 meses') s += 0.5;
+  /* EIXO 1 — Documentação */
+  var doc = 100;
+  faltam.forEach(function(d){ doc -= d.peso; });
+  if(A.encargos === 'Hipoteca — tenho crédito')       doc -= 5;
+  if(A.encargos === 'Penhora ou processo judicial')   doc -= 30;
+  if(A.encargos === 'Usufruto')                       doc -= 20;
+  if(A.encargos === 'Não sei')                        doc -= 10;
+  if(A.proprietario === 'É uma herança ou partilha')  doc -= 15;
+  if(A.proprietario === 'Vários proprietários')       doc -= 10;
+  if(A.acordo === 'Ainda não há acordo entre todos')  doc -= 20;
+  if(A.acordo === 'Não sei / ainda não falámos')      doc -= 15;
+  doc = lim(doc);
 
-  // Motivo (motivação forte para vender)
-  if(A.motivo === 'Razões financeiras') s += 0.5;
-  if(A.motivo === 'Herança ou partilha') s += 0.5;
+  /* EIXO 2 — Preço vs mercado */
+  var preco = 45;
+  if(A.origem_valor === 'Fiz uma avaliação profissional')                  preco = 90;
+  else if(A.origem_valor === 'Vi anúncios de casas parecidas')             preco = 68;
+  else if(A.origem_valor === 'É o valor de que preciso para os meus planos')preco = 32;
+  else if(A.origem_valor === 'Sinceramente, não faço ideia')               preco = 45;
+  if(A.margem === 'Sim, tenho alguma margem')  preco += 10;
+  if(A.margem === 'Nenhuma, é este valor')     preco -= 15;
+  if(A.valor === 'Ainda não defini')           preco -= 8;
+  if(A.tempo_mercado === '3 a 6 meses')        preco -= 12;
+  if(A.tempo_mercado === 'Mais de 6 meses')    preco -= 22;
+  preco = lim(preco);
 
-  // Aceitação de avaliação profissional
-  if(A.avaliacao48h === 'Sim') s += 0.5;
+  /* EIXO 3 — Estado e prontidão */
+  var estado = 78;
+  if(A.ocupacao === 'Está vazio')                 estado += 15;
+  if(A.ocupacao === 'Vivo lá')                    estado += 5;
+  if(A.ocupacao === 'Uso ocasional')              estado += 5;
+  if(A.ocupacao === 'Está arrendado a inquilinos')estado -= 30;
+  if(A.ano === 'Antes de 1980')                   estado -= 15;
+  if(A.ano === '1980–2000')                       estado -= 5;
+  if(A.ano === 'Depois de 2015')                  estado += 8;
+  if(A.ano === 'Não sei ao certo')                estado -= 5;
+  if(A.prazo === 'Estou só a explorar a ideia')   estado -= 10;
+  estado = lim(estado);
 
-  return Math.max(0, Math.min(10, s));
+  /* Global e janela de tempo */
+  var global = lim(doc*0.35 + preco*0.40 + estado*0.25);
+  var tempo, nota;
+  if(global >= 80){ tempo='4 a 8 semanas';   nota='A sua casa está pronta a ir a mercado.'; }
+  else if(global >= 65){ tempo='6 a 10 semanas'; nota='Está quase — faltam ajustes pontuais.'; }
+  else if(global >= 50){ tempo='2 a 4 meses';    nota='Há pontos a resolver antes de anunciar.'; }
+  else if(global >= 35){ tempo='4 a 6 meses';    nota='Vários travões vão atrasar a venda.'; }
+  else { tempo='Mais de 6 meses'; nota='Sem intervenção, a venda vai arrastar-se.'; }
+
+  /* Travões, por ordem de gravidade */
+  var t = [];
+  if(faltam.some(function(d){ return d.k === 'Certificado energético'; }))
+    t.push({t:'Falta o certificado energético',
+            d:'É obrigatório por lei para anunciar o imóvel. Sem ele, o anúncio não pode sequer ir para o ar.'});
+  if(A.acordo === 'Ainda não há acordo entre todos' || A.acordo === 'Não sei / ainda não falámos')
+    t.push({t:'Não há acordo entre todos os proprietários',
+            d:'A escritura precisa da assinatura de todos. Sem acordo prévio, o negócio cai à última hora.'});
+  if(A.encargos === 'Penhora ou processo judicial')
+    t.push({t:'Existe penhora ou processo judicial',
+            d:'Tem de ser levantada antes da escritura. É o travão que mais tempo consome.'});
+  if(A.ocupacao === 'Está arrendado a inquilinos')
+    t.push({t:'O imóvel está arrendado',
+            d:'Reduz drasticamente o número de compradores interessados e pressiona o preço para baixo.'});
+  if(A.origem_valor === 'É o valor de que preciso para os meus planos')
+    t.push({t:'O preço está ancorado na sua necessidade',
+            d:'O mercado não paga o que precisamos de receber — paga o que vale. É o principal motivo de casas que não vendem.'});
+  if(A.origem_valor === 'Sinceramente, não faço ideia')
+    t.push({t:'Ainda não sabe quanto vale a casa',
+            d:'Anunciar acima do mercado queima o imóvel nas primeiras semanas, que são as que contam.'});
+  if(A.tempo_mercado === 'Mais de 6 meses' || A.tempo_mercado === '3 a 6 meses')
+    t.push({t:'Demasiado tempo no mercado',
+            d:'Um anúncio antigo passa a mensagem de que "tem algum problema". A correção passa por relançar, não por esperar.'});
+  if(A.ja_venda === 'Sim, com agência em exclusivo')
+    t.push({t:'Tem um contrato de exclusividade ativo',
+            d:'Só pode mudar de estratégia no fim do contrato. Vale a pena confirmar a data de término.'});
+  if(A.encargos === 'Usufruto')
+    t.push({t:'O imóvel tem usufruto',
+            d:'O usufrutuário tem de consentir na venda. Sem esse consentimento, não há escritura.'});
+  if(faltam.length >= 3)
+    t.push({t:'Faltam ' + faltam.length + ' documentos',
+            d:'Reunir tudo leva semanas entre Finanças, Conservatória e Câmara. Convém começar já.'});
+  if(A.prazo === 'O mais rápido possível' && A.margem === 'Nenhuma, é este valor')
+    t.push({t:'Quer vender depressa, mas sem ceder no preço',
+            d:'Rapidez e preço máximo raramente andam juntos. Uma das duas coisas tem de ceder.'});
+
+  /* Próximos passos, ordenados pelo caso concreto */
+  var p = [];
+  if(faltam.some(function(d){ return d.k === 'Certificado energético'; }))
+    p.push({t:'Peça já o certificado energético',
+            d:'É o único documento que impede o anúncio de ir para o ar. Um perito ADENE emite-o em poucos dias.'});
+  if(A.acordo === 'Ainda não há acordo entre todos' || A.acordo === 'Não sei / ainda não falámos')
+    p.push({t:'Feche o acordo entre proprietários antes de mostrar a casa',
+            d:'Ponha por escrito o valor mínimo aceite por todos. Evita perder o comprador na reta final.'});
+  if(A.encargos === 'Penhora ou processo judicial')
+    p.push({t:'Trate do levantamento da penhora',
+            d:'Comece pelo processo em tribunal ou pela entidade credora — é o passo mais demorado de todos.'});
+  if(preco < 60)
+    p.push({t:'Peça uma avaliação profissional',
+            d:'Saber o valor real de mercado antes de anunciar é o que separa vender em semanas de vender em meses.'});
+  if(A.ocupacao === 'Está arrendado a inquilinos')
+    p.push({t:'Defina a estratégia com o inquilino',
+            d:'Vender com contrato ativo, negociar a saída ou aguardar o fim do contrato — cada opção muda o preço.'});
+  if(faltam.length > 0)
+    p.push({t:'Reúna os documentos em falta',
+            d:'Finanças, Conservatória e Câmara — pode tratar de tudo em paralelo e ganhar semanas.'});
+  if(A.ja_venda === 'Sim, com agência em exclusivo')
+    p.push({t:'Confirme a data de fim do contrato de exclusividade',
+            d:'Só depois dessa data pode reposicionar o imóvel com outra estratégia.'});
+  p.push({t:'Prepare a casa para as visitas',
+            d:'Arrumação, luz e pequenas reparações. É o investimento mais barato com maior impacto no preço final.'});
+
+  return {
+    doc:doc, preco:preco, estado:estado, global:global,
+    tempo:tempo, nota:nota,
+    travoes:t.slice(0,3),
+    faltam:faltam.map(function(d){ return d.k; }),
+    docsLista:DOCS.map(function(d){
+      return {k:d.k, onde:d.onde, bloqueia:!!d.bloqueia, tem:tem.indexOf(d.k) !== -1};
+    }),
+    passos:p.slice(0,4)
+  };
 }
 
-/* =========================================================================
-   Normalização de telemóvel para E.164 (+351...)
-   ========================================================================= */
+/* ═══════════════ ENVIO ═══════════════ */
 function normalizarTel(v){
-  let d = (v||'').replace(/\D/g,'');
+  var d = (v||'').replace(/\D/g,'');
   if(!d) return '';
   if(d.indexOf('00') === 0) d = d.slice(2);
-  if(d.length === 9) d = '351' + d;
+  if(d.length === 9) d = PREFIXO_PAIS + d;
   return '+' + d;
 }
 
-/* =========================================================================
-   Envio do webhook (GHL) com keepalive
-   ========================================================================= */
-function enviarWebhook(tel, first, last, score, eventId){
-  const WEBHOOK_URL = 'WEBHOOK_URL_AQUI'; /* substituir na integração */
-
-  if(!WEBHOOK_URL || WEBHOOK_URL === 'WEBHOOK_URL_AQUI') return;
-
-  const payload = {
-    /* Chaves padrão que o GHL mapeia automaticamente */
-    name: (A.nome||'').trim(),
+function enviarWebhook(tel, first, last, D, eventId){
+  var payload = {
+    name: A.nome || '',
     first_name: first,
     last_name: last,
     phone: tel,
-    email: (A.email||'').trim(),
+    email: A.email || '',
 
-    /* Metadados */
     timestamp: new Date().toISOString(),
-    origem: 'sim_paulomatos',
+    origem: NOME_ORIGEM,
     pagina_url: window.location.href,
     event_id: eventId,
-    score_viabilidade: Number(score.toFixed(1)),
+    consentimento_rgpd: A.consent ? 'Sim' : 'Não',
 
-    /* Respostas com rótulos legíveis */
-    tipo_imovel: A.tipo || '',
-    tipologia: A.tipologia || '',
-    localizacao: A.localizacao || '',
-    estado_imovel: A.estado || '',
-    area_aproximada: A.area || '',
-    tem_credito_habitacao: A.credito || '',
+    imovel_tipo: A.tipo || '',
+    imovel_tipologia: A.tipologia || 'N/A',
+    imovel_area: A.area ? (A.area + ' m²') : '',
+    imovel_localizacao: A.local || '',
+    imovel_ano: A.ano || '',
+    titularidade: A.proprietario || '',
+    acordo_venda: A.acordo || 'N/A',
+    documentos_que_tem: (Array.isArray(A.docs) && A.docs.length) ? A.docs.join(', ') : 'Nenhum',
+    documentos_em_falta: D.faltam.length ? D.faltam.join(', ') : 'Nenhum',
+    encargos: A.encargos || '',
+    valor_pretendido: A.valor || '',
+    origem_do_valor: A.origem_valor || '',
     capital_em_divida: A.divida || '',
-    valor_pretendido_venda: A.valor || '',
-    prazo_pretendido: A.prazo || '',
+    flexibilidade_preco: A.margem || '',
     motivo_venda: A.motivo || '',
-    avaliacao_gratuita_48h: A.avaliacao48h || '',
+    prazo_venda: A.prazo || '',
+    ocupacao: A.ocupacao || '',
+    ja_no_mercado: A.ja_venda || '',
+    tempo_no_mercado: A.tempo_mercado || 'N/A',
+    quer_avaliacao: A.avaliacao || '',
 
-    /* Cópia bruta para depuração */
-    raw: Object.assign({}, A)
+    score_documentacao: D.doc,
+    score_preco: D.preco,
+    score_estado: D.estado,
+    score_global: D.global,
+    tempo_estimado: D.tempo,
+    travoes: D.travoes.map(function(x){ return x.t; }).join(' | ') || 'Nenhum',
+
+    raw: JSON.parse(JSON.stringify(A))
   };
 
-  try {
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: {'Content-Type':'text/plain;charset=UTF-8'},
-      body: JSON.stringify(payload),
-      keepalive: true
-    }).catch(()=>{});
-  } catch(e){}
+  if(!WEBHOOK_URL){
+    console.log('[MODO DEMO] Webhook por configurar. Payload:', payload);
+    return;
+  }
+  fetch(WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    keepalive: true,
+    body: JSON.stringify(payload)
+  }).catch(function(err){ console.error('Falha no webhook:', err); });
 }
 
-/* =========================================================================
-   Finalização: pixel + webhook + redirect com atraso de segurança
-   ========================================================================= */
 function finalizar(){
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.disabled = true;
-  document.getElementById('sending').classList.add('on');
+  if(aEnviar) return;
+  aEnviar = true;
+  btn.disabled = true;
+  btn.textContent = 'A preparar o seu diagnóstico…';
 
-  const score = calcularScore();
-  const tel = normalizarTel(A.tel);
-  const partes = (A.nome||'').trim().split(/\s+/);
-  const first = partes[0] || '';
-  const last = partes.slice(1).join(' ') || '';
-  const eventId = 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
+  var D       = diagnosticar();
+  var tel     = normalizarTel(A.tel);
+  var partes  = (A.nome||'').trim().split(/\s+/);
+  var first   = partes[0] || '';
+  var last    = partes.slice(1).join(' ') || '';
+  var eventId = 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
 
-  /* 1) Guardar no sessionStorage para o resultado.html ler */
+  /* 1) guardar PRIMEIRO — a página de resultado lê daqui */
   try {
-    sessionStorage.setItem('sim_paulomatos', JSON.stringify({A: A, score: score}));
+    sessionStorage.setItem(CHAVE_UNICA, JSON.stringify({A:A, D:D, eventId:eventId, ts:Date.now()}));
   } catch(e){}
 
-  /* 2) Advanced Matching (opcional, melhora qualidade de correspondência) */
-  if(typeof fbq === 'function'){
-    fbq('init', 'META_PIXEL_ID', {
-      em: (A.email||'').toLowerCase().trim(),
-      ph: tel,
-      fn: first.toLowerCase(),
-      ln: last.toLowerCase()
-    });
+  /* 2) Advanced Matching antes do evento */
+  if(PIXEL_ATIVO && typeof fbq === 'function'){
+    fbq('init', PIXEL_ID, { em:A.email, ph:tel, fn:first, ln:last });
+    /* 3) Lead UMA vez. SEM value. SEM currency. */
+    fbq('track','Lead', { content_name:NOME_ORIGEM, content_category:MARCA }, { eventID:eventId });
   }
 
-  /* 3) Disparar Lead UMA vez com eventID */
-  if(typeof fbq === 'function'){
-    fbq('track', 'Lead', {
-      content_name: 'Simulador Paulo Matos',
-      content_category: 'imobiliario_venda',
-      value: Number(score.toFixed(1)),
-      currency: 'EUR'
-    }, {eventID: eventId});
-  }
+  /* 4) webhook */
+  enviarWebhook(tel, first, last, D, eventId);
 
-  /* 4) Enviar webhook para o GHL (keepalive sobrevive ao redirect) */
-  enviarWebhook(tel, first, last, score, eventId);
-
-  /* 5) Redirecionar apenas depois de dar tempo ao pixel para sair (800ms) */
-  let jaFoi = false;
-  const ir = ()=>{
-    if(jaFoi) return;
-    jaFoi = true;
-    window.location.href = 'resultado.html';
-  };
+  /* 5) só agora o redirect */
+  var jaFoi = false;
+  var ir = function(){ if(jaFoi) return; jaFoi = true; window.location.href = 'resultado.html'; };
   setTimeout(ir, 800);
+  setTimeout(ir, 2500);
 }
-
-/* =========================================================================
-   Inicialização
-   ========================================================================= */
-atualizarProgresso();
 </script>
-
 </body>
 </html>
