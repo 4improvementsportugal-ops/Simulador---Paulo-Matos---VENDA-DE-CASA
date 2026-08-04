@@ -106,7 +106,7 @@ a{color:inherit}
 .mk.no{background:var(--vermelho)}
 .doc b{display:block;font-size:14.5px;font-weight:600}
 .doc span{display:block;font-size:12.5px;color:var(--cinza);margin-top:3px}
-.tag{display:inline-block;background:var(--vermelho);color:var(--branco);font-size:9.5px;
+.doc span.tag{display:inline-block;width:auto;background:var(--vermelho);color:var(--branco);font-size:9.5px;
   font-weight:700;letter-spacing:.08em;padding:3px 7px;border-radius:5px;margin-top:7px}
 
 /* ── 4. Travões ── */
@@ -160,7 +160,7 @@ a{color:inherit}
   <!-- 2. EIXOS -->
   <section class="card">
     <h2>Onde está a sua casa hoje</h2>
-    <p class="sub">Três fatores independentes decidem o tempo de venda.</p>
+    <p class="sub">Dois fatores decidem por onde começar.</p>
     <div id="eixos"></div>
   </section>
 
@@ -226,9 +226,8 @@ var INSTAGRAM = '';                       /* ⚠️ POR PREENCHER — URL comple
   /* ── Eixos ── */
   function cor(v){ return v >= 70 ? 'var(--verde)' : (v >= 45 ? 'var(--terracota)' : 'var(--vermelho)'); }
   var EIXOS = [
-    {n:'Documentação',     v:D.doc,    l:'Se tem em mãos tudo o que é preciso para anunciar e escriturar.'},
-    {n:'Preço vs. mercado',v:D.preco,  l:'Se o valor pedido está ancorado no mercado ou na necessidade.'},
-    {n:'Estado e prontidão',v:D.estado,l:'Se a casa está em condições de receber visitas já amanhã.'}
+    {n:'Documentação', v:D.doc,   l:'Se tem em mãos tudo o que é preciso para anunciar e escriturar.'},
+    {n:'Prontidão',    v:D.pront, l:'Se o seu prazo e a sua situação apontam para uma venda a curto prazo.'}
   ];
   var elE = document.getElementById('eixos');
   EIXOS.forEach(function(e){

@@ -158,7 +158,7 @@ button{font-family:inherit;cursor:pointer}
 @media(min-width:700px){.quiz{padding:34px 34px 36px}}
 
 .barra{height:5px;background:var(--bege-linha);border-radius:99px;overflow:hidden}
-.barra i{display:block;height:100%;width:20%;background:var(--bege);
+.barra i{display:block;height:100%;width:33.33%;background:var(--bege);
   border-radius:99px;transition:width .45s cubic-bezier(.4,0,.2,1)}
 .passo-conta{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cinza);margin:12px 0 4px}
@@ -272,8 +272,8 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
 <section class="quiz-wrap" id="quiz">
   <div class="quiz">
     <div class="barra" role="progressbar" aria-label="Progresso do diagnóstico"
-         aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="pb"><i id="pbi"></i></div>
-    <p class="passo-conta" id="conta">Passo 1 de 5</p>
+         aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" id="pb"><i id="pbi"></i></div>
+    <p class="passo-conta" id="conta">Passo 1 de 3</p>
 
     <!-- PASSO 1 -->
     <div class="passo ativo" data-passo="1">
@@ -301,56 +301,16 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="campo" data-campo="area">
-        <label for="i-area">Área aproximada (m²)</label>
-        <input type="number" id="i-area" inputmode="numeric" min="10" max="5000" placeholder="Ex.: 120">
-        <span class="msg-erro">Indique uma área entre 10 e 5000 m².</span>
-      </div>
-
       <div class="campo" data-campo="local">
         <label for="i-local">Onde fica? <span class="dica">Concelho e freguesia.</span></label>
         <input type="text" id="i-local" placeholder="Ex.: Loures, Santo Antão do Tojal">
         <span class="msg-erro">Indique o concelho e a freguesia.</span>
       </div>
-
-      <div class="campo" data-campo="ano">
-        <label for="i-ano">Ano de construção</label>
-        <select id="i-ano">
-          <option value="">Selecionar…</option>
-          <option>Antes de 1980</option>
-          <option>1980 a 2000</option>
-          <option>2001 a 2015</option>
-          <option>Depois de 2015</option>
-          <option>Não sei ao certo</option>
-        </select>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
     </div>
 
     <!-- PASSO 2 -->
     <div class="passo" data-passo="2">
-      <h2>Quem é o dono e o que já tem em mãos</h2>
-
-      <div class="campo" data-campo="proprietario">
-        <span class="rot" id="l-prop">Quem é o proprietário do imóvel?</span>
-        <div class="opts" role="group" aria-labelledby="l-prop">
-          <button type="button" class="opt" aria-pressed="false" data-val="Só eu">Só eu</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Eu e o meu cônjuge">Eu e o meu cônjuge</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="É uma herança ou partilha">É uma herança ou partilha</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Vários proprietários">Vários proprietários</button>
-        </div>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
-
-      <div class="campo oculto" data-campo="acordo" id="c-acordo">
-        <span class="rot" id="l-acordo">Estão todos de acordo em vender?</span>
-        <div class="opts" role="group" aria-labelledby="l-acordo">
-          <button type="button" class="opt" aria-pressed="false" data-val="Sim, está tudo acordado">Sim, está tudo acordado</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Ainda não há acordo entre todos">Ainda não há acordo entre todos</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Não sei / ainda não falámos">Não sei / ainda não falámos</button>
-        </div>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
+      <h2>Documentos e contexto</h2>
 
       <div class="campo" data-campo="docs" data-multi="1">
         <span class="rot" id="l-docs">Que documentos já tem?
@@ -364,77 +324,6 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         </div>
         <span class="msg-erro">Escolha pelo menos uma opção.</span>
       </div>
-
-      <div class="campo" data-campo="encargos">
-        <span class="rot" id="l-enc">O imóvel tem algum encargo?</span>
-        <div class="opts" role="group" aria-labelledby="l-enc">
-          <button type="button" class="opt" aria-pressed="false" data-val="Não, está livre">Não, está livre</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Hipoteca, tenho crédito">Hipoteca, tenho crédito</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Penhora ou processo judicial">Penhora ou processo judicial</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Usufruto">Usufruto</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Não sei">Não sei</button>
-        </div>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
-    </div>
-
-    <!-- PASSO 3 -->
-    <div class="passo" data-passo="3">
-      <h2>O preço e de onde vem esse número</h2>
-
-      <div class="campo" data-campo="valor">
-        <label for="i-valor">Por quanto pretende vender?</label>
-        <select id="i-valor">
-          <option value="">Selecionar…</option>
-          <option>Até 150.000 €</option>
-          <option>150.000 € a 250.000 €</option>
-          <option>250.000 € a 400.000 €</option>
-          <option>400.000 € a 600.000 €</option>
-          <option>Mais de 600.000 €</option>
-          <option>Ainda não defini</option>
-        </select>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
-
-      <div class="campo" data-campo="origem_valor">
-        <span class="rot" id="l-orig">Como chegou a esse valor?</span>
-        <div class="opts" role="group" aria-labelledby="l-orig">
-          <button type="button" class="opt" aria-pressed="false" data-val="Fiz uma avaliação profissional">Fiz uma avaliação profissional</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Vi anúncios de casas parecidas">Vi anúncios de casas parecidas</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="É o valor de que preciso para os meus planos">É o valor de que preciso para os meus planos</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Sinceramente, não faço ideia">Sinceramente, não faço ideia</button>
-        </div>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
-
-      <div class="campo" data-campo="divida">
-        <label for="i-divida">Tem capital em dívida ao banco?</label>
-        <select id="i-divida">
-          <option value="">Selecionar…</option>
-          <option>Não tenho crédito, está pago</option>
-          <option>Menos de 50.000 €</option>
-          <option>50.000 € a 100.000 €</option>
-          <option>100.000 € a 200.000 €</option>
-          <option>Mais de 200.000 €</option>
-          <option>Não sei</option>
-        </select>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
-
-      <div class="campo" data-campo="margem">
-        <span class="rot" id="l-marg">Tem margem de negociação?</span>
-        <div class="opts" role="group" aria-labelledby="l-marg">
-          <button type="button" class="opt" aria-pressed="false" data-val="Sim, tenho alguma margem">Sim, tenho alguma margem</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Pouca, só para fechar negócio">Pouca, só para fechar negócio</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Nenhuma, é este valor">Nenhuma, é este valor</button>
-        </div>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
-    </div>
-
-    <!-- PASSO 4 -->
-    <div class="passo" data-passo="4">
-      <h2>O seu contexto</h2>
 
       <div class="campo" data-campo="motivo">
         <span class="rot" id="l-mot">Porque está a vender?</span>
@@ -461,17 +350,6 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
 
-      <div class="campo" data-campo="ocupacao">
-        <span class="rot" id="l-ocu">Como está o imóvel neste momento?</span>
-        <div class="opts" role="group" aria-labelledby="l-ocu">
-          <button type="button" class="opt" aria-pressed="false" data-val="Vivo lá">Vivo lá</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Está vazio">Está vazio</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Está arrendado a inquilinos">Está arrendado a inquilinos</button>
-          <button type="button" class="opt" aria-pressed="false" data-val="Uso ocasional">Uso ocasional</button>
-        </div>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
-
       <div class="campo" data-campo="ja_venda">
         <span class="rot" id="l-jav">Já está à venda?</span>
         <div class="opts" role="group" aria-labelledby="l-jav">
@@ -482,22 +360,10 @@ input:focus,select:focus{border-color:var(--preto);outline:none}
         </div>
         <span class="msg-erro">Escolha uma opção para continuar.</span>
       </div>
-
-      <div class="campo oculto" data-campo="tempo_mercado" id="c-tempo">
-        <label for="i-tempo">Há quanto tempo está no mercado?</label>
-        <select id="i-tempo">
-          <option value="">Selecionar…</option>
-          <option>Menos de 1 mês</option>
-          <option>1 a 3 meses</option>
-          <option>3 a 6 meses</option>
-          <option>Mais de 6 meses</option>
-        </select>
-        <span class="msg-erro">Escolha uma opção para continuar.</span>
-      </div>
     </div>
 
-    <!-- PASSO 5 -->
-    <div class="passo" data-passo="5">
+    <!-- PASSO 3 -->
+    <div class="passo" data-passo="3">
       <h2>Para onde enviamos o diagnóstico</h2>
 
       <div class="campo" data-campo="nome">
@@ -601,11 +467,9 @@ var btn   = document.getElementById('btnSeguir');
 var btnV  = document.getElementById('btnVoltar');
 
 var CAMPOS_PASSO = {
-  1:['tipo','tipologia','area','local','ano'],
-  2:['proprietario','acordo','docs','encargos'],
-  3:['valor','origem_valor','divida','margem'],
-  4:['motivo','prazo','ocupacao','ja_venda','tempo_mercado'],
-  5:['nome','tel','email','avaliacao','consent']
+  1:['tipo','tipologia','local'],
+  2:['docs','motivo','prazo','ja_venda'],
+  3:['nome','tel','email','avaliacao','consent']
 };
 
 function elCampo(nome){ return document.querySelector('[data-campo="'+nome+'"]'); }
@@ -644,9 +508,7 @@ document.querySelectorAll('.campo .opt').forEach(function(b){
 });
 
 /* ---------- Inputs ---------- */
-[['i-area','area'],['i-local','local'],['i-ano','ano'],['i-valor','valor'],
- ['i-divida','divida'],['i-tempo','tempo_mercado'],['i-nome','nome'],
- ['i-tel','tel'],['i-email','email']].forEach(function(p){
+[['i-local','local'],['i-nome','nome'],['i-tel','tel'],['i-email','email']].forEach(function(p){
   var el = document.getElementById(p[0]);
   el.addEventListener('input', function(){
     A[p[1]] = el.value.trim();
@@ -675,19 +537,7 @@ function condicionais(alterado){
     var c = document.getElementById('c-tipologia');
     if(A.tipo === 'Terreno') esconde(c,'tipologia'); else c.classList.remove('oculto');
   }
-  if(alterado === 'proprietario'){
-    var c2 = document.getElementById('c-acordo');
-    if(!A.proprietario || A.proprietario === 'Só eu') esconde(c2,'acordo');
-    else c2.classList.remove('oculto');
-  }
-  if(alterado === 'ja_venda'){
-    var c3 = document.getElementById('c-tempo');
-    if(!A.ja_venda || A.ja_venda === 'Não, ainda não') esconde(c3,'tempo_mercado');
-    else c3.classList.remove('oculto');
-  }
 }
-condicionais('proprietario');
-condicionais('ja_venda');
 
 /* ---------- Validação ---------- */
 var RX_EMAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
@@ -698,7 +548,6 @@ function validaCampo(nome){
   var v = A[nome];
   switch(nome){
     case 'docs':   return Array.isArray(v) && v.length > 0;
-    case 'area':   var n = parseInt(v,10); return !isNaN(n) && n >= 10 && n <= 5000;
     case 'local':  return !!v && v.length >= 3;
     case 'nome':   return !!v && v.length >= 3 && /\s/.test(v.trim());
     case 'tel':    return !!v && (v.replace(/\D/g,'').length >= 9);
@@ -725,16 +574,16 @@ function mostra(n){
   document.querySelectorAll('.passo').forEach(function(p){
     p.classList.toggle('ativo', p.getAttribute('data-passo') === String(n));
   });
-  pbi.style.width = (n/5*100) + '%';
+  pbi.style.width = (n/3*100) + '%';
   pb.setAttribute('aria-valuenow', n);
-  conta.textContent = 'Passo ' + n + ' de 5';
+  conta.textContent = 'Passo ' + n + ' de 3';
   btnV.style.display = n === 1 ? 'none' : 'block';
-  btn.textContent = n === 5 ? 'Ver o meu diagnóstico' : 'Continuar';
+  btn.textContent = n === 3 ? 'Ver o meu diagnóstico' : 'Continuar';
   window.scrollTo({ top: document.getElementById('quiz').offsetTop - 12, behavior:'smooth' });
 }
 btn.addEventListener('click', function(){
   if(!validaPasso(passo)) return;
-  if(passo < 5){ passo++; mostra(passo); }
+  if(passo < 3){ passo++; mostra(passo); }
   else finalizar();
 });
 btnV.addEventListener('click', function(){
@@ -757,108 +606,67 @@ function lim(n){ return Math.max(0, Math.min(100, Math.round(n))); }
 function diagnosticar(){
   var tem = Array.isArray(A.docs) ? A.docs : [];
   var faltam = DOCS.filter(function(d){ return tem.indexOf(d.k) === -1; });
+  var semCE  = faltam.some(function(d){ return d.k === 'Certificado energético'; });
+  var semLic = faltam.some(function(d){ return d.k === 'Licença de utilização'; });
 
-  /* EIXO 1 — Documentação */
+  /* EIXO 1 — Documentação (60% do global) */
   var doc = 100;
   faltam.forEach(function(d){ doc -= d.peso; });
-  if(A.encargos === 'Hipoteca, tenho crédito')       doc -= 5;
-  if(A.encargos === 'Penhora ou processo judicial')   doc -= 30;
-  if(A.encargos === 'Usufruto')                       doc -= 20;
-  if(A.encargos === 'Não sei')                        doc -= 10;
-  if(A.proprietario === 'É uma herança ou partilha')  doc -= 15;
-  if(A.proprietario === 'Vários proprietários')       doc -= 10;
-  if(A.acordo === 'Ainda não há acordo entre todos')  doc -= 20;
-  if(A.acordo === 'Não sei / ainda não falámos')      doc -= 15;
   doc = lim(doc);
 
-  /* EIXO 2 — Preço vs mercado */
-  var preco = 45;
-  if(A.origem_valor === 'Fiz uma avaliação profissional')                  preco = 90;
-  else if(A.origem_valor === 'Vi anúncios de casas parecidas')             preco = 68;
-  else if(A.origem_valor === 'É o valor de que preciso para os meus planos')preco = 32;
-  else if(A.origem_valor === 'Sinceramente, não faço ideia')               preco = 45;
-  if(A.margem === 'Sim, tenho alguma margem')  preco += 10;
-  if(A.margem === 'Nenhuma, é este valor')     preco -= 15;
-  if(A.valor === 'Ainda não defini')           preco -= 8;
-  if(A.tempo_mercado === '3 a 6 meses')        preco -= 12;
-  if(A.tempo_mercado === 'Mais de 6 meses')    preco -= 22;
-  preco = lim(preco);
-
-  /* EIXO 3 — Estado e prontidão */
-  var estado = 78;
-  if(A.ocupacao === 'Está vazio')                 estado += 15;
-  if(A.ocupacao === 'Vivo lá')                    estado += 5;
-  if(A.ocupacao === 'Uso ocasional')              estado += 5;
-  if(A.ocupacao === 'Está arrendado a inquilinos')estado -= 30;
-  if(A.ano === 'Antes de 1980')                   estado -= 15;
-  if(A.ano === '1980 a 2000')                       estado -= 5;
-  if(A.ano === 'Depois de 2015')                  estado += 8;
-  if(A.ano === 'Não sei ao certo')                estado -= 5;
-  if(A.prazo === 'Estou só a explorar a ideia')   estado -= 10;
-  estado = lim(estado);
+  /* EIXO 2 — Prontidão para avançar (40% do global) */
+  var pront = 60;
+  if(A.prazo === 'O mais rápido possível')       pront += 25;
+  if(A.prazo === 'Até 3 meses')                  pront += 25;
+  if(A.prazo === '3 a 6 meses')                  pront += 12;
+  if(A.prazo === 'Estou só a explorar a ideia')  pront -= 25;
+  if(A.motivo === 'Vou emigrar')                                       pront += 10;
+  if(A.motivo === 'Mudança de vida (trabalho, separação, família)')    pront += 10;
+  if(A.motivo === 'Vou mudar de casa')                                 pront += 5;
+  if(A.motivo === 'Recebi uma herança')                                pront += 5;
+  if(A.ja_venda === 'Não, ainda não')                pront += 10;
+  if(A.ja_venda === 'Sim, com agência em exclusivo') pront -= 5;
+  pront = lim(pront);
 
   /* Global e janela de tempo */
-  var global = lim(doc*0.35 + preco*0.40 + estado*0.25);
+  var global = lim(doc*0.60 + pront*0.40);
   var tempo, nota;
-  if(global >= 80){ tempo='4 a 8 semanas';   nota='A sua casa está pronta a ir a mercado.'; }
-  else if(global >= 65){ tempo='6 a 10 semanas'; nota='Está quase. Faltam ajustes pontuais.'; }
-  else if(global >= 50){ tempo='2 a 4 meses';    nota='Há pontos a resolver antes de anunciar.'; }
-  else if(global >= 35){ tempo='4 a 6 meses';    nota='Vários travões vão atrasar a venda.'; }
-  else { tempo='Mais de 6 meses'; nota='Sem intervenção, a venda vai arrastar-se.'; }
+  if(global >= 80){ tempo='4 a 8 semanas';   nota='Está pronto para ir a mercado.'; }
+  else if(global >= 62){ tempo='6 a 10 semanas'; nota='Está quase. Faltam ajustes pontuais.'; }
+  else if(global >= 45){ tempo='2 a 4 meses';    nota='Há pontos a resolver antes de anunciar.'; }
+  else { tempo='4 meses ou mais'; nota='Sem resolver o que está em falta, a venda vai arrastar-se.'; }
 
   /* Travões, por ordem de gravidade */
   var t = [];
-  if(faltam.some(function(d){ return d.k === 'Certificado energético'; }))
+  if(semCE)
     t.push({t:'Falta o certificado energético',
             d:'É obrigatório por lei para anunciar o imóvel. Sem ele, o anúncio não pode sequer ir para o ar.'});
-  if(A.acordo === 'Ainda não há acordo entre todos' || A.acordo === 'Não sei / ainda não falámos')
-    t.push({t:'Não há acordo entre todos os proprietários',
-            d:'A escritura precisa da assinatura de todos. Sem acordo prévio, o negócio cai à última hora.'});
-  if(A.encargos === 'Penhora ou processo judicial')
-    t.push({t:'Existe penhora ou processo judicial',
-            d:'Tem de ser levantada antes da escritura. É o travão que mais tempo consome.'});
-  if(A.ocupacao === 'Está arrendado a inquilinos')
-    t.push({t:'O imóvel está arrendado',
-            d:'Reduz drasticamente o número de compradores interessados e pressiona o preço para baixo.'});
-  if(A.origem_valor === 'É o valor de que preciso para os meus planos')
-    t.push({t:'O preço está ancorado na sua necessidade',
-            d:'O mercado não paga o que precisamos de receber. Paga o que vale. É o principal motivo de casas que não vendem.'});
-  if(A.origem_valor === 'Sinceramente, não faço ideia')
-    t.push({t:'Ainda não sabe quanto vale a casa',
-            d:'Anunciar acima do mercado queima o imóvel nas primeiras semanas, que são as que contam.'});
-  if(A.tempo_mercado === 'Mais de 6 meses' || A.tempo_mercado === '3 a 6 meses')
-    t.push({t:'Demasiado tempo no mercado',
-            d:'Um anúncio antigo passa a mensagem de que "tem algum problema". A correção passa por relançar, não por esperar.'});
+  if(semLic)
+    t.push({t:'Falta a licença de utilização',
+            d:'É pedida pelo notário no dia da escritura. Se não aparecer a tempo, o negócio fica suspenso.'});
+  if(A.prazo === 'O mais rápido possível' && faltam.length >= 2)
+    t.push({t:'Quer vender depressa, mas faltam documentos',
+            d:'Reunir tudo leva semanas entre Finanças, Conservatória e Câmara. Enquanto não estiver reunido, o relógio não começa a contar.'});
   if(A.ja_venda === 'Sim, com agência em exclusivo')
     t.push({t:'Tem um contrato de exclusividade ativo',
             d:'Só pode mudar de estratégia no fim do contrato. Vale a pena confirmar a data de término.'});
-  if(A.encargos === 'Usufruto')
-    t.push({t:'O imóvel tem usufruto',
-            d:'O usufrutuário tem de consentir na venda. Sem esse consentimento, não há escritura.'});
+  if(A.ja_venda === 'Sim, por minha conta')
+    t.push({t:'Está a vender sozinho',
+            d:'Sem acesso aos portais profissionais nem à rede de compradores, o imóvel é visto por muito menos gente.'});
   if(faltam.length >= 3)
     t.push({t:'Faltam ' + faltam.length + ' documentos',
-            d:'Reunir tudo leva semanas entre Finanças, Conservatória e Câmara. Convém começar já.'});
-  if(A.prazo === 'O mais rápido possível' && A.margem === 'Nenhuma, é este valor')
-    t.push({t:'Quer vender depressa, mas sem ceder no preço',
-            d:'Rapidez e preço máximo raramente andam juntos. Uma das duas coisas tem de ceder.'});
+            d:'Reunir tudo leva semanas entre três entidades diferentes. Convém começar já.'});
+  if(A.prazo === 'Estou só a explorar a ideia')
+    t.push({t:'Ainda não há uma decisão de venda',
+            d:'Não é um problema, mas muda tudo. Antes de anunciar, vale a pena saber quanto vale a casa hoje.'});
 
   /* Próximos passos, ordenados pelo caso concreto */
   var p = [];
-  if(faltam.some(function(d){ return d.k === 'Certificado energético'; }))
+  if(semCE)
     p.push({t:'Peça já o certificado energético',
             d:'É o único documento que impede o anúncio de ir para o ar. Um perito ADENE emite-o em poucos dias.'});
-  if(A.acordo === 'Ainda não há acordo entre todos' || A.acordo === 'Não sei / ainda não falámos')
-    p.push({t:'Feche o acordo entre proprietários antes de mostrar a casa',
-            d:'Ponha por escrito o valor mínimo aceite por todos. Evita perder o comprador na reta final.'});
-  if(A.encargos === 'Penhora ou processo judicial')
-    p.push({t:'Trate do levantamento da penhora',
-            d:'Comece pelo processo em tribunal ou pela entidade credora. É o passo mais demorado de todos.'});
-  if(preco < 60)
-    p.push({t:'Peça uma avaliação profissional',
+  p.push({t:'Peça uma avaliação profissional',
             d:'Saber o valor real de mercado antes de anunciar é o que separa vender em semanas de vender em meses.'});
-  if(A.ocupacao === 'Está arrendado a inquilinos')
-    p.push({t:'Defina a estratégia com o inquilino',
-            d:'Vender com contrato ativo, negociar a saída ou aguardar o fim do contrato. Cada opção muda o preço.'});
   if(faltam.length > 0)
     p.push({t:'Reúna os documentos em falta',
             d:'Finanças, Conservatória e Câmara. Pode tratar de tudo em paralelo e ganhar semanas.'});
@@ -869,7 +677,7 @@ function diagnosticar(){
             d:'Arrumação, luz e pequenas reparações. É o investimento mais barato com maior impacto no preço final.'});
 
   return {
-    doc:doc, preco:preco, estado:estado, global:global,
+    doc:doc, pront:pront, global:global,
     tempo:tempo, nota:nota,
     travoes:t.slice(0,3),
     faltam:faltam.map(function(d){ return d.k; }),
@@ -905,28 +713,16 @@ function enviarWebhook(tel, first, last, D, eventId){
 
     imovel_tipo: A.tipo || '',
     imovel_tipologia: A.tipologia || 'N/A',
-    imovel_area: A.area ? (A.area + ' m²') : '',
     imovel_localizacao: A.local || '',
-    imovel_ano: A.ano || '',
-    titularidade: A.proprietario || '',
-    acordo_venda: A.acordo || 'N/A',
     documentos_que_tem: (Array.isArray(A.docs) && A.docs.length) ? A.docs.join(', ') : 'Nenhum',
     documentos_em_falta: D.faltam.length ? D.faltam.join(', ') : 'Nenhum',
-    encargos: A.encargos || '',
-    valor_pretendido: A.valor || '',
-    origem_do_valor: A.origem_valor || '',
-    capital_em_divida: A.divida || '',
-    flexibilidade_preco: A.margem || '',
     motivo_venda: A.motivo || '',
     prazo_venda: A.prazo || '',
-    ocupacao: A.ocupacao || '',
     ja_no_mercado: A.ja_venda || '',
-    tempo_no_mercado: A.tempo_mercado || 'N/A',
     quer_avaliacao: A.avaliacao || '',
 
     score_documentacao: D.doc,
-    score_preco: D.preco,
-    score_estado: D.estado,
+    score_prontidao: D.pront,
     score_global: D.global,
     tempo_estimado: D.tempo,
     travoes: D.travoes.map(function(x){ return x.t; }).join(' | ') || 'Nenhum',
